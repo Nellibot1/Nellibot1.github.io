@@ -1,473 +1,722 @@
-<!DOCTYPE html><html><head>
-      <title>index</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <style>
-      /**
- * prism.js Github theme based on GitHub's theme.
- * @author Sam Clarke
- */
-code[class*="language-"],
-pre[class*="language-"] {
-  color: #333;
-  background: none;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.4;
+-git <!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Clearing House Unterricht</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  -moz-tab-size: 8;
-  -o-tab-size: 8;
-  tab-size: 8;
+    :root {
+      --tum-blue: #0065BD;
+      --tum-blue-dark: #003e73;
+      --tum-blue-light: #5ba4cf;
+      --accent: #e37222;
+      --text: #1a1a2e;
+      --muted: #5c6370;
+      --bg: #ffffff;
+      --bg-light: #f4f7fb;
+      --bg-section: #eef2f8;
+      --border: #d0d9e8;
+      --white: #ffffff;
+    }
 
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
+    html { scroll-behavior: smooth; }
 
-/* Code blocks */
-pre[class*="language-"] {
-  padding: .8em;
-  overflow: auto;
-  /* border: 1px solid #ddd; */
-  border-radius: 3px;
-  /* background: #fff; */
-  background: #f5f5f5;
-}
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
-  white-space: normal;
-  background: #f5f5f5;
-}
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100px; left: 1rem;
+      background: var(--tum-blue); color: #fff; padding: .5rem 1rem;
+      border-radius: 0 0 4px 4px; font-size: .85rem; z-index: 9999;
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
 
-.token.comment,
-.token.blockquote {
-  color: #969896;
-}
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: var(--tum-blue-dark);
+      padding: .35rem 0;
+      font-size: .78rem;
+    }
+    .top-bar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: flex-end; gap: 1.5rem;
+    }
+    .top-bar a { color: rgba(255,255,255,.75); text-decoration: none; transition: color .2s; }
+    .top-bar a:hover { color: #fff; }
 
-.token.cdata {
-  color: #183691;
-}
+    /* ── HEADER / NAV ── */
+    header {
+      background: var(--tum-blue);
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,.18);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; gap: 2rem;
+      height: 68px;
+    }
+    .logo {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: .75rem;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: white; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem; color: var(--tum-blue); letter-spacing: -.5px;
+    }
+    .logo-text { line-height: 1.15; }
+    .logo-text .line1 { font-size: .65rem; color: rgba(255,255,255,.7); font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
+    .logo-text .line2 { font-size: .95rem; color: #fff; font-weight: 700; letter-spacing: .01em; }
 
-.token.doctype,
-.token.punctuation,
-.token.variable,
-.token.macro.property {
-  color: #333;
-}
+    nav { flex: 1; }
+    .nav-list {
+      display: flex; list-style: none; gap: 0;
+      justify-content: flex-end; align-items: stretch; height: 68px;
+    }
+    .nav-list > li { position: relative; display: flex; align-items: center; }
+    .nav-list > li > a {
+      color: rgba(255,255,255,.9); text-decoration: none;
+      font-size: .9rem; font-weight: 500;
+      padding: 0 1rem; height: 100%;
+      display: flex; align-items: center; gap: .3rem;
+      white-space: nowrap; transition: background .2s, color .2s;
+      border-bottom: 3px solid transparent;
+    }
+    .nav-list > li > a:hover,
+    .nav-list > li > a.active {
+      background: rgba(255,255,255,.12);
+      border-bottom-color: var(--accent);
+      color: #fff;
+    }
+    .nav-list > li > a .caret { font-size: .6rem; opacity: .7; }
 
-.token.operator,
-.token.important,
-.token.keyword,
-.token.rule,
-.token.builtin {
-  color: #a71d5d;
-}
+    /* Dropdown */
+    .dropdown {
+      position: absolute; top: 100%; left: 0;
+      background: #fff; min-width: 230px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.14);
+      border-top: 3px solid var(--tum-blue);
+      border-radius: 0 0 6px 6px;
+      opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: opacity .2s, transform .2s, visibility .2s;
+      z-index: 300;
+    }
+    .nav-list > li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown a {
+      display: block; padding: .65rem 1.2rem;
+      color: var(--text); text-decoration: none; font-size: .875rem;
+      border-bottom: 1px solid var(--border); transition: background .15s, color .15s;
+    }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: var(--bg-light); color: var(--tum-blue); padding-left: 1.5rem; }
 
-.token.string,
-.token.url,
-.token.regex,
-.token.attr-value {
-  color: #183691;
-}
+    /* Nav search */
+    .nav-search { display: flex; align-items: center; gap: .5rem; margin-left: .5rem; }
+    .nav-search input {
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      border-radius: 20px; padding: .35rem .9rem;
+      color: #fff; font-size: .85rem; width: 160px; outline: none;
+      transition: background .2s, width .3s;
+    }
+    .nav-search input::placeholder { color: rgba(255,255,255,.6); }
+    .nav-search input:focus { background: rgba(255,255,255,.25); width: 200px; }
+    .nav-search button {
+      background: none; border: none; cursor: pointer; color: rgba(255,255,255,.8);
+      font-size: 1rem; padding: .35rem;
+    }
 
-.token.property,
-.token.number,
-.token.boolean,
-.token.entity,
-.token.atrule,
-.token.constant,
-.token.symbol,
-.token.command,
-.token.code {
-  color: #0086b3;
-}
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--tum-blue-dark) 0%, var(--tum-blue) 55%, #1a7ec8 100%);
+      padding: 6rem 2rem 5rem;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      color: rgba(255,255,255,.9); font-size: .78rem; letter-spacing: .12em;
+      text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px;
+      margin-bottom: 1.5rem; font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Source Serif 4', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.15; margin-bottom: .75rem;
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: rgba(255,255,255,.8); font-weight: 300;
+      margin-bottom: 2.5rem; font-style: italic;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.8rem; border-radius: 4px;
+      font-size: .95rem; font-weight: 600; text-decoration: none;
+      transition: transform .15s, box-shadow .15s, background .2s;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.2); }
+    .btn-white { background: #fff; color: var(--tum-blue); }
+    .btn-white:hover { background: #f0f6ff; }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: #c75f10; }
+    .btn-blue { background: var(--tum-blue); color: #fff; }
+    .btn-blue:hover { background: var(--tum-blue-dark); }
 
-.token.tag,
-.token.selector,
-.token.prolog {
-  color: #63a35c;
-}
+    /* ── SECTION WRAPPER ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 5rem 0; }
+    .section-alt { background: var(--bg-light); }
+    .section-dark { background: var(--tum-blue-dark); }
 
-.token.function,
-.token.namespace,
-.token.pseudo-element,
-.token.class,
-.token.class-name,
-.token.pseudo-class,
-.token.id,
-.token.url-reference .token.variable,
-.token.attr-name {
-  color: #795da3;
-}
+    .section-label {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--tum-blue);
+      margin-bottom: .75rem;
+    }
+    .section-dark .section-label { color: rgba(255,255,255,.6); }
+    .section-title {
+      font-family: 'Source Serif 4', serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 700; line-height: 1.2;
+      margin-bottom: 1.25rem; color: var(--text);
+    }
+    .section-dark .section-title { color: #fff; }
+    .section-body { font-size: 1rem; color: var(--muted); max-width: 760px; line-height: 1.8; }
+    .section-dark .section-body { color: rgba(255,255,255,.75); }
+    .divider { width: 48px; height: 4px; background: var(--tum-blue); border-radius: 2px; margin: 1.2rem 0 2rem; }
+    .section-dark .divider { background: var(--accent); }
 
-.token.entity {
-  cursor: help;
-}
+    /* ── MISSION ── */
+    #mission .mission-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .mission-visual {
+      background: linear-gradient(135deg, var(--tum-blue), #1a7ec8);
+      border-radius: 12px; padding: 2.5rem;
+      color: #fff; min-height: 360px;
+      display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .mission-visual::after {
+      content: '"';
+      position: absolute; bottom: -20px; right: 20px;
+      font-size: 14rem; color: rgba(255,255,255,.06);
+      font-family: 'Source Serif 4', serif; line-height: 1; pointer-events: none;
+    }
+    .mission-visual blockquote {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.35rem; font-style: italic; font-weight: 400;
+      line-height: 1.5; color: rgba(255,255,255,.95);
+    }
+    .mission-visual .stat-row { display: flex; gap: 2rem; margin-top: .5rem; }
+    .stat { text-align: center; }
+    .stat .num { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+    .stat .lbl { font-size: .75rem; color: rgba(255,255,255,.7); margin-top: .2rem; }
 
-.token.title,
-.token.title .token.punctuation {
-  font-weight: bold;
-  color: #1d3e81;
-}
+    /* ── CARDS (Evidence) ── */
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+    .card {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+    .card-img {
+      height: 180px; background: var(--bg-section);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; overflow: hidden; position: relative;
+    }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .card-img-placeholder {
+      background: linear-gradient(135deg, var(--bg-section) 0%, var(--border) 100%);
+    }
+    .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .card-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--tum-blue); margin-bottom: .5rem; }
+    .card-title { font-family: 'Source Serif 4', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: .75rem; line-height: 1.3; }
+    .card-text { font-size: .9rem; color: var(--muted); line-height: 1.7; flex: 1; }
+    .card-footer { padding: 1rem 1.5rem 1.5rem; }
+    .card-link {
+      font-size: .85rem; font-weight: 600; color: var(--tum-blue);
+      text-decoration: none; display: inline-flex; align-items: center; gap: .35rem;
+      transition: gap .15s, color .15s;
+    }
+    .card-link:hover { color: var(--tum-blue-dark); gap: .6rem; }
 
-.token.list {
-  color: #ed6a43;
-}
+    /* ── FORMATS (Kurzreviews / Academy / Glossar) ── */
+    .format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .format-card {
+      background: #fff; border-radius: 10px; padding: 2.25rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .format-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--tum-blue); border-radius: 10px 10px 0 0;
+    }
+    .format-card:nth-child(2)::before { background: var(--accent); }
+    .format-card:nth-child(3)::before { background: #2ecc71; }
+    .format-card:hover { transform: translateY(-3px); border-color: var(--tum-blue-light); box-shadow: 0 6px 24px rgba(0,101,189,.12); }
+    .format-icon { font-size: 2.2rem; margin-bottom: 1.25rem; }
+    .format-card h3 {
+      font-family: 'Source Serif 4', serif; font-size: 1.25rem; font-weight: 700;
+      color: var(--text); margin-bottom: .75rem;
+    }
+    .format-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
 
-.token.inserted {
-  background-color: #eaffea;
-  color: #55a532;
-}
+    /* ── REVIEWS GRID ── */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .review-card {
+      background: #fff; border-radius: 8px; padding: 1.5rem;
+      border-left: 4px solid var(--tum-blue);
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .review-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .review-category { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--tum-blue); margin-bottom: .5rem; }
+    .review-title { font-family: 'Source Serif 4', serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; line-height: 1.35; }
+    .review-meta { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; margin-top: .75rem; }
+    .review-tag {
+      display: inline-block; background: var(--bg-light); border-radius: 12px;
+      padding: .2rem .65rem; font-size: .72rem; color: var(--muted); border: 1px solid var(--border);
+    }
 
-.token.deleted {
-  background-color: #ffecec;
-  color: #bd2c00;
-}
-
-.token.bold {
-  font-weight: bold;
-}
-
-.token.italic {
-  font-style: italic;
-}
 
 
-/* JSON */
-.language-json .token.property {
-  color: #183691;
-}
+    /* ── FOOTER ── */
+    footer {
+      background: #0d1a2e;
+      padding: 4rem 0 0;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand .logo-text .line1,
+    .footer-brand .logo-text .line2 { color: rgba(255,255,255,.8); }
+    .footer-brand p { font-size: .875rem; color: rgba(255,255,255,.5); margin-top: 1rem; line-height: 1.7; }
+    .footer-col h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.5); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col ul li a { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      padding: 1.25rem 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .78rem; color: rgba(255,255,255,.35);
+    }
+    .footer-bottom a { color: rgba(255,255,255,.45); text-decoration: none; }
+    .footer-bottom a:hover { color: rgba(255,255,255,.75); }
 
-.language-markup .token.tag .token.punctuation {
-  color: #333;
-}
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .card-grid, .format-grid { grid-template-columns: 1fr 1fr; }
+      #mission .mission-grid { grid-template-columns: 1fr; }
+      .newsletter-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .card-grid, .format-grid, .form-row { grid-template-columns: 1fr; }
+      .nav-list { display: none; }
+      .nav-search { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+    }
 
-/* CSS */
-code.language-css,
-.language-css .token.function {
-  color: #0086b3;
-}
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* YAML */
-.language-yaml .token.atrule {
-  color: #63a35c;
-}
+    /* ── VIDEO EMBED PLACEHOLDER ── */
+    .video-placeholder {
+      background: #0d1a2e; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer;
+    }
+    .video-placeholder::before {
+      content: '▶';
+      font-size: 3rem; color: rgba(255,255,255,.85);
+      background: rgba(0,101,189,.8); width: 72px; height: 72px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      line-height: 72px; text-align: center; padding-left: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.4);
+    }
+    .video-placeholder .vid-label {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      font-size: .85rem; color: rgba(255,255,255,.8); background: rgba(0,0,0,.5);
+      padding: .35rem .8rem; border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
 
-code.language-yaml {
-  color: #183691;
-}
+<a href="#main" class="skip-link">Zum Inhalt springen</a>
 
-/* Ruby */
-.language-ruby .token.function {
-  color: #333;
-}
-
-/* Markdown */
-.language-markdown .token.url {
-  color: #795da3;
-}
-
-/* Makefile */
-.language-makefile .token.symbol {
-  color: #795da3;
-}
-
-.language-makefile .token.variable {
-  color: #183691;
-}
-
-.language-makefile .token.builtin {
-  color: #0086b3;
-}
-
-/* Bash */
-.language-bash .token.keyword {
-  color: #0086b3;
-}
-
-/* highlight */
-pre[data-line] {
-  position: relative;
-  padding: 1em 0 1em 3em;
-}
-pre[data-line] .line-highlight-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  display: block;
-  width: 100%;
-}
-
-pre[data-line] .line-highlight {
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: inherit 0;
-  margin-top: 1em;
-  background: hsla(24, 20%, 50%,.08);
-  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-  pointer-events: none;
-  line-height: inherit;
-  white-space: pre;
-}
-
-pre[data-line] .line-highlight:before, 
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-start);
-  position: absolute;
-  top: .4em;
-  left: .6em;
-  min-width: 1em;
-  padding: 0 .5em;
-  background-color: hsla(24, 20%, 50%,.4);
-  color: hsl(24, 20%, 95%);
-  font: bold 65%/1.5 sans-serif;
-  text-align: center;
-  vertical-align: .3em;
-  border-radius: 999px;
-  text-shadow: none;
-  box-shadow: 0 1px white;
-}
-
-pre[data-line] .line-highlight[data-end]:after {
-  content: attr(data-end);
-  top: auto;
-  bottom: .4em;
-}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-
-      </style>
-    </head>
-    <body for="html-export">
-      <div class="mume markdown-preview  ">
-      <style>
-.generalRules {
-  display: flex;
-  font-family: "Times New Roman", Times, serif;
-  flex-direction:column;
-  max-width: 960px
-}
-h1 {
-  font-style: italic;
-}
-.titleTextContent {
-  border: 4px solid; 
-}
-img {
-  max-width: 100%
-}
-.titleImage {
-  flex-basis: 40%;
-}
-.titleText {
-  text-align: justify;
-  font-size: 18px;
-  padding: 15px;
-  font-weight: bold;
-}
-.sectionHeader {
-  padding-top: 20px;
-  text-align: left;
-  font-size: 35px;
-  font-weight: 500;
-  color: #002FBD;
-  line-height: 45px;
-}
-.horizontalLine {
-  width: 100%;
-  border-top:4px solid #002FBD; 
-  padding-bottom: 10px;
-}
-.sectionTextBox {
-  border: 1px solid; 
-}
-.sectionText {
-  text-align: justify;
-  font-size: 18px;
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  font-weight: normal;
-}
-.spaceBetween {
-  padding: 10px;
-}
-.downloadContainer {
-  background-color: #002FBD;
-  height: 150px;
-  width: 100%;
-  color: white;
-  font-size: 40px;
-  text-align: center;
-}
-.downloadbutton {
-  background-color: #002FBD;
-  border: 5px solid white;
-  border-left: 50px solid white;
-  border-right: 50px solid white;
-  color: white;
-  height: 50px;
-  width: 100%;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 25px;
-}
-.downloadbutton:hover {
-  background-color: #E2C838;
-}
-</style>
-
-<div class="generalRules">
-<h1> This is the title of your choice. </h1>
-<div class="titleImage">
-<img width="400" height="300" src="images/placeholder.png">
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="#">TUM School of Social Sciences and Technology</a>
+    <a href="#">Datenschutz</a>
+    <a href="#">Impressum</a>
+    <a href="#">DE / EN</a>
+  </div>
 </div>
-<div class="titleTextContent">
-<div class="titleText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-</div>
-</div>
-<div class="sectionHeader">
-  METAANALYSIS
-  <div class="horizontalLine"> </div>
-</div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>Lorem ipsum</b> dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-</div>
-<div class="sectionText">
-<b>Lorem ipsum</b> dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="downloadContainer">
-<b>Download short review</b> 
-<a href="example.pdf">
-<button class="downloadbutton"> <b>Download PDF</b></button>
-</a>
-</div>
-<div class="spaceBetween"></div>
-<div class="sectionHeader">
-  READ SHORT REVIEW ONLINE
-  <div class="horizontalLine"> </div>
-</div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>Introduction</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>What is this study about?</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>What does this study find?</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>How does the Digital Psychology Lab teaching evaluate this study?</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>Conclusion for teaching practice</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>Study example</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-<div class="spaceBetween"></div>
-<div class="horizontalLine"> </div>
-<div class="sectionTextBox">
-<div class="sectionText">
-<b>References</b>
-</div>
-<div class="sectionText">
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
-<p></p>
-<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
-</div>
-</div>
-</div>
- 
 
+<!-- HEADER -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">TUM</div>
+      <div class="logo-text">
+        <div class="line1">TUM School of Social Sciences and Technology</div>
+        <div class="line2">Clearing House Unterricht</div>
       </div>
-      
-      
-    
-    
-    
-    
-    
-    
-    
-    
-  
-    </body></html>
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="nav-list">
+        <li><a href="#" class="active">Home</a></li>
+        <li>
+          <a href="#">Kurzreviews <span class="caret">▾</span></a>
+          <div class="dropdown">
+            <a href="#">Lernen in Gruppen</a>
+            <a href="#">Geschlechterunterschiede</a>
+            <a href="#">Forschendes Lernen</a>
+            <a href="#">Selbstreguliertes Lernen</a>
+            <a href="#">Lehrstrategien</a>
+            <a href="#">Spielbasiertes Lernen</a>
+            <a href="#">Lernen mit digitalen Medien</a>
+            <a href="#">Einstellungen &amp; Motivation</a>
+          </div>
+        </li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Begleitmaterialien</a></li>
+        <li><a href="#">DesignLabs</a></li>
+        <li><a href="#">Glossar</a></li>
+        <li>
+          <a href="#">CHU Team und Partner <span class="caret">▾</span></a>
+          <div class="dropdown">
+            <a href="#">Team</a>
+            <a href="#">FAQs</a>
+            <a href="#">Partner</a>
+            <a href="#">Newsletter</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <div class="nav-search">
+      <input type="search" placeholder="Suchen …" aria-label="Suche" />
+      <button aria-label="Suche starten">🔍</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">TUM · Bildungsforschung &amp; Praxis</div>
+    <h1>Clearing House Unterricht</h1>
+    <p class="hero-subtitle">Forschung fördert Bildung</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-white">Kurzreviews entdecken</a>
+      <a href="#" class="btn btn-outline">Zur Academy</a>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section id="mission">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="fade-in">
+          <span class="section-label">Über uns</span>
+          <h2 class="section-title">Unsere Mission</h2>
+          <div class="divider"></div>
+          <p class="section-body">
+            Das Clearing House Unterricht versteht sich als einzigartige Schnittstelle zwischen Bildungsforschung und Bildungspraxis und richtet sich an Lehrerbildner in allen Phasen der Lehrerausbildung. Unser Ziel ist es, aktuelle wissenschaftliche Erkenntnisse zu effektivem MINT-Unterricht in der Sekundarstufe zusammenzufassen und für die Lehrerbildung zielgruppengerecht aufzubereiten.
+          </p>
+          <br/>
+          <p class="section-body">
+            Dabei legen wir einen besonderen Fokus auf die sogenannten „Future Learning Skills", zu welchen ‚Kommunikation', ‚Kollaboration', ‚Kreativität' und ‚kritisches Denken' zählen. Dadurch möchten wir Lehrkräfte dabei unterstützen, diese Skills in den Unterricht – auch mit Hilfe von digitalen Medien – zu integrieren.
+          </p>
+          <br/>
+          <a href="#" class="btn btn-blue" style="margin-top:.5rem">Mehr erfahren</a>
+        </div>
+        <div class="fade-in" style="transition-delay:.15s">
+          <div class="mission-visual">
+            <blockquote>„Wir verbinden erstklassige internationale Forschung mit dem Alltag von Lehrerbildung und Unterricht."</blockquote>
+            <div class="stat-row">
+              <div class="stat"><div class="num">80+</div><div class="lbl">Kurzreviews</div></div>
+              <div class="stat"><div class="num">4</div><div class="lbl">Future Skills</div></div>
+              <div class="stat"><div class="num">100+</div><div class="lbl">Glossareinträge</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE SECTION -->
+  <section class="section-alt">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:3rem;" class="fade-in">
+        <span class="section-label">Wissenschaft trifft Praxis</span>
+        <h2 class="section-title">Wissenschaftliche Evidenz für die Lehrerbildung</h2>
+        <div class="divider" style="margin:1rem auto 0"></div>
+      </div>
+      <div class="card-grid">
+        <div class="card fade-in">
+          <div class="card-img card-img-placeholder">
+            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-im-blick.jpg" alt="Forschung im Blick" onerror="this.parentElement.innerHTML='🔬'" />
+          </div>
+          <div class="card-body">
+            <div class="card-label">Angebot</div>
+            <div class="card-title">Forschung im (Über-)Blick</div>
+            <p class="card-text">Wir sichten erstklassige internationale Forschung und wählen die aktuell besten verfügbaren Forschungsergebnisse zu erfolgreichem Unterricht aus.</p>
+          </div>
+          <div class="card-footer"><a href="#" class="card-link">Mehr erfahren →</a></div>
+        </div>
+        <div class="card fade-in" style="transition-delay:.1s">
+          <div class="card-img card-img-placeholder">
+            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-im-kompaktformat.jpg" alt="Forschung im Kompaktformat" onerror="this.parentElement.innerHTML='📋'" />
+          </div>
+          <div class="card-body">
+            <div class="card-label">Produkte</div>
+            <div class="card-title">Forschung im Kompaktformat</div>
+            <p class="card-text">Wir fassen die Ergebnisse kurz und verständlich zusammen und helfen, die Ergebnisse anhand transparenter Kriterien kritisch einzuordnen.</p>
+          </div>
+          <div class="card-footer"><a href="#" class="card-link">Zu den Reviews →</a></div>
+        </div>
+        <div class="card fade-in" style="transition-delay:.2s">
+          <div class="card-img card-img-placeholder">
+            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-fuer-professionalisierung.jpg" alt="Forschung für Professionalisierung" onerror="this.parentElement.innerHTML='🎓'" />
+          </div>
+          <div class="card-body">
+            <div class="card-label">Ziel</div>
+            <div class="card-title">Forschung für Professionalisierung</div>
+            <p class="card-text">Lehrerbildung und Lehrkräfte unterstützen, indem wir Wissen über Forschung vermitteln – relevant, aktuell und zielgruppengerecht.</p>
+          </div>
+          <div class="card-footer"><a href="#" class="card-link">Zur Academy →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO / INTRO -->
+  <section>
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+        <div class="fade-in">
+          <span class="section-label">Einführung</span>
+          <h2 class="section-title">Was ist das Clearing House Unterricht?</h2>
+          <div class="divider"></div>
+          <p class="section-body">Das CHU ist eine einzigartige Plattform, die Bildungsforschende, Lehrerbildende und Lehrkräfte zusammenbringt, um evidenzbasiertes Handeln im Unterricht zu stärken. Entdecken Sie unsere Produkte und Formate.</p>
+          <br/>
+          <a href="#" class="btn btn-blue" style="margin-top:.5rem">Mehr erfahren</a>
+        </div>
+        <div class="fade-in" style="transition-delay:.15s">
+          <div class="video-placeholder" role="button" tabindex="0" aria-label="Video abspielen">
+            <span class="vid-label">Einführungsvideo · CHU</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATS -->
+  <section class="section-alt">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:3rem;" class="fade-in">
+        <span class="section-label">Unsere Produkte</span>
+        <h2 class="section-title">Welche Formate bietet das Clearing House Unterricht an?</h2>
+        <div class="divider" style="margin:1rem auto 0"></div>
+      </div>
+      <div class="format-grid">
+        <div class="format-card fade-in">
+          <div class="format-icon">📄</div>
+          <h3>Kurzreviews</h3>
+          <p>Jedes Kurzreview fasst eine aktuelle Metaanalyse zusammen und stellt dar, welche Ansätze zum effektiven Unterricht sich als wirksam erwiesen haben und in welchem Kontext sie erfolgreich eingesetzt werden können. Ausgewählte Kurzreviews werden zusätzlich als Podcast zur Verfügung gestellt.</p>
+          <a href="#" class="btn btn-blue">Kurzreviews →</a>
+        </div>
+        <div class="format-card fade-in" style="transition-delay:.1s">
+          <div class="format-icon">🎓</div>
+          <h3>Academy</h3>
+          <p>Die CHU-Academy unterstützt Lehrerbildende darin, noch souveräner mit wissenschaftlicher Evidenz umgehen zu können. Die Unterstützungsangebote bzw. Trainings verzahnen wissenschaftlich aufbereitete Inhalte mit der Praxis.</p>
+          <a href="#" class="btn btn-accent">Academy →</a>
+        </div>
+        <div class="format-card fade-in" style="transition-delay:.2s">
+          <div class="format-icon">📚</div>
+          <h3>Glossar</h3>
+          <p>Das Glossar liefert kurze und aufschlussreiche Definitionen für wesentliche Fachbegriffe, um sich schnell orientieren zu können und die vorgestellten Inhalte besser verstehen und anwenden zu können.</p>
+          <a href="#" class="btn btn-blue" style="background:#2ecc71">Glossar →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS SECTION -->
+  <section>
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;" class="fade-in">
+        <div>
+          <span class="section-label">Aktuelle Beiträge</span>
+          <h2 class="section-title" style="margin-bottom:0">Kurzreviews</h2>
+        </div>
+        <a href="#" class="btn btn-blue">Weitere Kurzreviews</a>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card fade-in">
+          <div class="review-category">Lernen in Gruppen</div>
+          <div class="review-title">Kooperatives Lernen im MINT-Unterricht: Effekte und Bedingungen</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Metaanalysen zeigen deutliche Lernzuwächse bei strukturierter Gruppenarbeit mit klaren Rollen und positiver Interdependenz.</p>
+          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">Sekundarstufe</span></div>
+        </div>
+        <div class="review-card fade-in" style="transition-delay:.08s;border-left-color:var(--accent)">
+          <div class="review-category">Selbstreguliertes Lernen</div>
+          <div class="review-title">Selbstregulatiostrategien und akademische Leistung</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Effektive Selbstregulationsstrategien können die Lernleistung erheblich steigern – insbesondere in Verbindung mit Metakognition.</p>
+          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Alle Stufen</span></div>
+        </div>
+        <div class="review-card fade-in" style="transition-delay:.16s;border-left-color:#2ecc71">
+          <div class="review-category">Digitale Medien</div>
+          <div class="review-title">Lernen mit digitalen Medien: Chancen und Grenzen</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Digitale Werkzeuge können Lernergebnisse verbessern, wenn sie didaktisch sinnvoll eingesetzt werden und das Vorwissen der Lernenden berücksichtigen.</p>
+          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">MINT</span></div>
+        </div>
+        <div class="review-card fade-in" style="transition-delay:.24s">
+          <div class="review-category">Lehrstrategien</div>
+          <div class="review-title">Formatives Assessment als Steuerungsinstrument</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Kontinuierliches formatives Assessment ermöglicht es Lehrkräften, ihren Unterricht adaptiv zu gestalten und Lernende gezielt zu unterstützen.</p>
+          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Unterricht</span></div>
+        </div>
+        <div class="review-card fade-in" style="transition-delay:.32s;border-left-color:var(--accent)">
+          <div class="review-category">Forschendes Lernen</div>
+          <div class="review-title">Inquiry-Based Learning im naturwissenschaftlichen Unterricht</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Forschendes Lernen fördert das konzeptuelle Verständnis und wissenschaftliche Denken – vorausgesetzt, die Lernenden erhalten ausreichend Scaffolding.</p>
+          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">Naturwissenschaften</span></div>
+        </div>
+        <div class="review-card fade-in" style="transition-delay:.4s;border-left-color:#9b59b6">
+          <div class="review-category">Spielbasiertes Lernen</div>
+          <div class="review-title">Game-based Learning: Motivation und Lernzuwachs</div>
+          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Spielbasiertes Lernen steigert die Motivation und kann kognitive Lernziele fördern, wenn Spielmechaniken eng mit den Lernzielen verknüpft sind.</p>
+          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Motivation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:.75rem;display:inline-flex">
+          <div class="logo-icon" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)">TUM</div>
+          <div class="logo-text" style="margin-left:.75rem">
+            <div class="line1" style="color:rgba(255,255,255,.5);font-size:.62rem">TUM School of Social Sciences and Technology</div>
+            <div class="line2" style="color:rgba(255,255,255,.8)">Clearing House Unterricht</div>
+          </div>
+        </a>
+        <p>Das Clearing House Unterricht ist eine Schnittstelle zwischen Bildungsforschung und Bildungspraxis an der Technischen Universität München.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Angebote</h4>
+        <ul>
+          <li><a href="#">Kurzreviews</a></li>
+          <li><a href="#">Academy</a></li>
+          <li><a href="#">Begleitmaterialien</a></li>
+          <li><a href="#">DesignLabs</a></li>
+          <li><a href="#">Glossar</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Themen</h4>
+        <ul>
+          <li><a href="#">Lernen in Gruppen</a></li>
+          <li><a href="#">Digitale Medien</a></li>
+          <li><a href="#">Lehrstrategien</a></li>
+          <li><a href="#">Forschendes Lernen</a></li>
+          <li><a href="#">Motivation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Über uns</h4>
+        <ul>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">Partner</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright © 2026 Clearing House Unterricht · TUM School of Social Sciences and Technology</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">Barrierefreiheit</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Dropdown keyboard accessibility
+  document.querySelectorAll('.nav-list > li > a').forEach(link => {
+    link.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const dd = link.nextElementSibling;
+        if (dd && dd.classList.contains('dropdown')) {
+          e.preventDefault();
+          const vis = dd.style.visibility === 'visible';
+          dd.style.visibility = vis ? '' : 'visible';
+          dd.style.opacity = vis ? '' : '1';
+          dd.style.transform = vis ? '' : 'translateY(0)';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
