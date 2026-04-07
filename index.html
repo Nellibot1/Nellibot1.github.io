@@ -1,386 +1,183 @@
--git <!DOCTYPE html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home - Clearing House Unterricht</title>
+  <title>Wearable AI for Detecting Anxiety – Systematic Review and Meta-Analysis</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --tum-blue: #0065BD;
-      --tum-blue-dark: #003e73;
-      --tum-blue-light: #5ba4cf;
+      --blue: #0065BD;
+      --blue-dark: #003e73;
+      --blue-light: #5ba4cf;
       --accent: #e37222;
       --text: #1a1a2e;
       --muted: #5c6370;
       --bg: #ffffff;
       --bg-light: #f4f7fb;
-      --bg-section: #eef2f8;
       --border: #d0d9e8;
-      --white: #ffffff;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── SKIP LINK ── */
-    .skip-link {
-      position: absolute; top: -100px; left: 1rem;
-      background: var(--tum-blue); color: #fff; padding: .5rem 1rem;
-      border-radius: 0 0 4px 4px; font-size: .85rem; z-index: 9999;
-      transition: top .2s;
-    }
-    .skip-link:focus { top: 0; }
+    body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; font-size: 16px; }
 
     /* ── TOP BAR ── */
-    .top-bar {
-      background: var(--tum-blue-dark);
-      padding: .35rem 0;
-      font-size: .78rem;
-    }
-    .top-bar-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-      display: flex; justify-content: flex-end; gap: 1.5rem;
-    }
-    .top-bar a { color: rgba(255,255,255,.75); text-decoration: none; transition: color .2s; }
+    .top-bar { background: var(--blue-dark); padding: .3rem 0; font-size: .76rem; }
+    .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: flex-end; gap: 1.5rem; }
+    .top-bar a { color: rgba(255,255,255,.7); text-decoration: none; }
     .top-bar a:hover { color: #fff; }
 
-    /* ── HEADER / NAV ── */
-    header {
-      background: var(--tum-blue);
-      position: sticky; top: 0; z-index: 200;
-      box-shadow: 0 2px 12px rgba(0,0,0,.18);
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-      display: flex; align-items: center; gap: 2rem;
-      height: 68px;
-    }
-    .logo {
-      flex-shrink: 0;
-      display: flex; align-items: center; gap: .75rem;
-      text-decoration: none;
-    }
-    .logo-icon {
-      width: 44px; height: 44px;
-      background: white; border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 1rem; color: var(--tum-blue); letter-spacing: -.5px;
-    }
-    .logo-text { line-height: 1.15; }
-    .logo-text .line1 { font-size: .65rem; color: rgba(255,255,255,.7); font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
-    .logo-text .line2 { font-size: .95rem; color: #fff; font-weight: 700; letter-spacing: .01em; }
-
+    /* ── HEADER ── */
+    header { background: var(--blue); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.18); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 2rem; height: 68px; }
+    .logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; flex-shrink: 0; }
+    .logo-box { background: #fff; border-radius: 4px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .95rem; color: var(--blue); }
+    .logo-text .l1 { font-size: .6rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+    .logo-text .l2 { font-size: .9rem; color: #fff; font-weight: 700; }
     nav { flex: 1; }
-    .nav-list {
-      display: flex; list-style: none; gap: 0;
-      justify-content: flex-end; align-items: stretch; height: 68px;
-    }
+    .nav-list { display: flex; list-style: none; justify-content: flex-end; height: 68px; }
     .nav-list > li { position: relative; display: flex; align-items: center; }
-    .nav-list > li > a {
-      color: rgba(255,255,255,.9); text-decoration: none;
-      font-size: .9rem; font-weight: 500;
-      padding: 0 1rem; height: 100%;
-      display: flex; align-items: center; gap: .3rem;
-      white-space: nowrap; transition: background .2s, color .2s;
-      border-bottom: 3px solid transparent;
-    }
-    .nav-list > li > a:hover,
-    .nav-list > li > a.active {
-      background: rgba(255,255,255,.12);
-      border-bottom-color: var(--accent);
-      color: #fff;
-    }
-    .nav-list > li > a .caret { font-size: .6rem; opacity: .7; }
-
-    /* Dropdown */
-    .dropdown {
-      position: absolute; top: 100%; left: 0;
-      background: #fff; min-width: 230px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.14);
-      border-top: 3px solid var(--tum-blue);
-      border-radius: 0 0 6px 6px;
-      opacity: 0; visibility: hidden; transform: translateY(-8px);
-      transition: opacity .2s, transform .2s, visibility .2s;
-      z-index: 300;
-    }
+    .nav-list > li > a { color: rgba(255,255,255,.9); text-decoration: none; font-size: .875rem; font-weight: 500; padding: 0 .9rem; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: background .2s, border-color .2s; white-space: nowrap; }
+    .nav-list > li > a:hover { background: rgba(255,255,255,.12); border-bottom-color: var(--accent); }
+    .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,.13); border-top: 3px solid var(--blue); border-radius: 0 0 6px 6px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: .2s; z-index: 300; }
     .nav-list > li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-    .dropdown a {
-      display: block; padding: .65rem 1.2rem;
-      color: var(--text); text-decoration: none; font-size: .875rem;
-      border-bottom: 1px solid var(--border); transition: background .15s, color .15s;
-    }
+    .dropdown a { display: block; padding: .6rem 1.1rem; color: var(--text); text-decoration: none; font-size: .85rem; border-bottom: 1px solid var(--border); transition: background .15s; }
     .dropdown a:last-child { border-bottom: none; }
-    .dropdown a:hover { background: var(--bg-light); color: var(--tum-blue); padding-left: 1.5rem; }
+    .dropdown a:hover { background: var(--bg-light); color: var(--blue); }
 
-    /* Nav search */
-    .nav-search { display: flex; align-items: center; gap: .5rem; margin-left: .5rem; }
-    .nav-search input {
-      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
-      border-radius: 20px; padding: .35rem .9rem;
-      color: #fff; font-size: .85rem; width: 160px; outline: none;
-      transition: background .2s, width .3s;
-    }
-    .nav-search input::placeholder { color: rgba(255,255,255,.6); }
-    .nav-search input:focus { background: rgba(255,255,255,.25); width: 200px; }
-    .nav-search button {
-      background: none; border: none; cursor: pointer; color: rgba(255,255,255,.8);
-      font-size: 1rem; padding: .35rem;
-    }
+    /* ── HERO IMAGE ── */
+    .hero-img { width: 100%; height: 320px; object-fit: cover; display: block; filter: brightness(.85); }
+    .hero-img-wrap { position: relative; overflow: hidden; max-height: 320px; background: #1a2a3a; }
+    .hero-img-wrap img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .hero-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,30,60,.55)); }
 
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(135deg, var(--tum-blue-dark) 0%, var(--tum-blue) 55%, #1a7ec8 100%);
-      padding: 6rem 2rem 5rem;
-      position: relative; overflow: hidden;
-      text-align: center;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .hero-tag {
-      display: inline-block;
-      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
-      color: rgba(255,255,255,.9); font-size: .78rem; letter-spacing: .12em;
-      text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px;
-      margin-bottom: 1.5rem; font-weight: 500;
-    }
-    .hero h1 {
-      font-family: 'Source Serif 4', serif;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 700; color: #fff;
-      line-height: 1.15; margin-bottom: .75rem;
-    }
-    .hero-subtitle {
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      color: rgba(255,255,255,.8); font-weight: 300;
-      margin-bottom: 2.5rem; font-style: italic;
-    }
-    .hero-cta {
-      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: .75rem 1.8rem; border-radius: 4px;
-      font-size: .95rem; font-weight: 600; text-decoration: none;
-      transition: transform .15s, box-shadow .15s, background .2s;
-      cursor: pointer;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.2); }
-    .btn-white { background: #fff; color: var(--tum-blue); }
-    .btn-white:hover { background: #f0f6ff; }
-    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
-    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); }
-    .btn-accent { background: var(--accent); color: #fff; }
-    .btn-accent:hover { background: #c75f10; }
-    .btn-blue { background: var(--tum-blue); color: #fff; }
-    .btn-blue:hover { background: var(--tum-blue-dark); }
+    /* ── LAYOUT ── */
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
+    .main-col { min-width: 0; }
+    .side-col { position: sticky; top: 88px; }
 
-    /* ── SECTION WRAPPER ── */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-    section { padding: 5rem 0; }
-    .section-alt { background: var(--bg-light); }
-    .section-dark { background: var(--tum-blue-dark); }
+    /* ── BREADCRUMB ── */
+    .breadcrumb { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: var(--muted); }
 
-    .section-label {
-      display: inline-block; font-size: .72rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--tum-blue);
-      margin-bottom: .75rem;
-    }
-    .section-dark .section-label { color: rgba(255,255,255,.6); }
-    .section-title {
-      font-family: 'Source Serif 4', serif;
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-      font-weight: 700; line-height: 1.2;
-      margin-bottom: 1.25rem; color: var(--text);
-    }
-    .section-dark .section-title { color: #fff; }
-    .section-body { font-size: 1rem; color: var(--muted); max-width: 760px; line-height: 1.8; }
-    .section-dark .section-body { color: rgba(255,255,255,.75); }
-    .divider { width: 48px; height: 4px; background: var(--tum-blue); border-radius: 2px; margin: 1.2rem 0 2rem; }
-    .section-dark .divider { background: var(--accent); }
+    /* ── TAGS ── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .tag { display: inline-block; background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; color: var(--blue); font-weight: 600; text-decoration: none; transition: background .15s; }
+    .tag:hover { background: #dbeaff; }
 
-    /* ── MISSION ── */
-    #mission .mission-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-    }
-    .mission-visual {
-      background: linear-gradient(135deg, var(--tum-blue), #1a7ec8);
-      border-radius: 12px; padding: 2.5rem;
-      color: #fff; min-height: 360px;
-      display: flex; flex-direction: column; justify-content: center; gap: 1.5rem;
-      position: relative; overflow: hidden;
-    }
-    .mission-visual::after {
-      content: '"';
-      position: absolute; bottom: -20px; right: 20px;
-      font-size: 14rem; color: rgba(255,255,255,.06);
-      font-family: 'Source Serif 4', serif; line-height: 1; pointer-events: none;
-    }
-    .mission-visual blockquote {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.35rem; font-style: italic; font-weight: 400;
-      line-height: 1.5; color: rgba(255,255,255,.95);
-    }
-    .mission-visual .stat-row { display: flex; gap: 2rem; margin-top: .5rem; }
-    .stat { text-align: center; }
-    .stat .num { font-size: 2.2rem; font-weight: 700; line-height: 1; }
-    .stat .lbl { font-size: .75rem; color: rgba(255,255,255,.7); margin-top: .2rem; }
+    /* ── ARTICLE HEADER ── */
+    .article-meta { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+    .article-title { font-family: 'Source Serif 4', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text); }
 
-    /* ── CARDS (Evidence) ── */
-    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-    .card {
-      background: #fff; border-radius: 10px; overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,.07);
-      transition: transform .2s, box-shadow .2s;
-      display: flex; flex-direction: column;
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
-    .card-img {
-      height: 180px; background: var(--bg-section);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3rem; overflow: hidden; position: relative;
-    }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .card-img-placeholder {
-      background: linear-gradient(135deg, var(--bg-section) 0%, var(--border) 100%);
-    }
-    .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-    .card-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--tum-blue); margin-bottom: .5rem; }
-    .card-title { font-family: 'Source Serif 4', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); margin-bottom: .75rem; line-height: 1.3; }
-    .card-text { font-size: .9rem; color: var(--muted); line-height: 1.7; flex: 1; }
-    .card-footer { padding: 1rem 1.5rem 1.5rem; }
-    .card-link {
-      font-size: .85rem; font-weight: 600; color: var(--tum-blue);
-      text-decoration: none; display: inline-flex; align-items: center; gap: .35rem;
-      transition: gap .15s, color .15s;
-    }
-    .card-link:hover { color: var(--tum-blue-dark); gap: .6rem; }
+    /* ── OVERVIEW BOX ── */
+    .overview-box { background: var(--bg-light); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+    .overview-box h3 { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .06em; }
+    .overview-box dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; font-size: .9rem; }
+    .overview-box dt { font-weight: 700; color: var(--text); white-space: nowrap; }
+    .overview-box dd { color: var(--muted); }
+    .overview-box ul { margin-top: .75rem; padding-left: 1.2rem; color: var(--muted); font-size: .9rem; }
+    .overview-box ul li { margin-bottom: .35rem; }
 
-    /* ── FORMATS (Kurzreviews / Academy / Glossar) ── */
-    .format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-    .format-card {
-      background: #fff; border-radius: 10px; padding: 2.25rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 8px rgba(0,0,0,.05);
-      transition: transform .2s, border-color .2s, box-shadow .2s;
-      position: relative; overflow: hidden;
-    }
-    .format-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: var(--tum-blue); border-radius: 10px 10px 0 0;
-    }
-    .format-card:nth-child(2)::before { background: var(--accent); }
-    .format-card:nth-child(3)::before { background: #2ecc71; }
-    .format-card:hover { transform: translateY(-3px); border-color: var(--tum-blue-light); box-shadow: 0 6px 24px rgba(0,101,189,.12); }
-    .format-icon { font-size: 2.2rem; margin-bottom: 1.25rem; }
-    .format-card h3 {
-      font-family: 'Source Serif 4', serif; font-size: 1.25rem; font-weight: 700;
-      color: var(--text); margin-bottom: .75rem;
-    }
-    .format-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    /* ── ARTICLE BODY ── */
+    .article-body h2 { font-family: 'Source Serif 4', serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 2.25rem 0 .75rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); }
+    .article-body h3 { font-family: 'Source Serif 4', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 .5rem; }
+    .article-body h4 { font-size: .95rem; font-weight: 700; color: var(--blue); margin: 1.25rem 0 .4rem; text-transform: uppercase; letter-spacing: .05em; }
+    .article-body p { color: var(--muted); margin-bottom: 1rem; }
+    .article-body strong { color: var(--text); }
+    .article-body a { color: var(--blue); text-decoration: none; border-bottom: 1px dotted var(--blue-light); }
+    .article-body a:hover { border-bottom-style: solid; }
+    .article-body ol, .article-body ul { padding-left: 1.4rem; margin-bottom: 1rem; color: var(--muted); }
+    .article-body li { margin-bottom: .4rem; }
 
-    /* ── REVIEWS GRID ── */
-    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-    .review-card {
-      background: #fff; border-radius: 8px; padding: 1.5rem;
-      border-left: 4px solid var(--tum-blue);
-      box-shadow: 0 1px 8px rgba(0,0,0,.06);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .review-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
-    .review-category { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--tum-blue); margin-bottom: .5rem; }
-    .review-title { font-family: 'Source Serif 4', serif; font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; line-height: 1.35; }
-    .review-meta { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; margin-top: .75rem; }
-    .review-tag {
-      display: inline-block; background: var(--bg-light); border-radius: 12px;
-      padding: .2rem .65rem; font-size: .72rem; color: var(--muted); border: 1px solid var(--border);
-    }
+    /* ── TABLE ── */
+    .article-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .9rem; }
+    .article-body th { background: var(--blue); color: #fff; padding: .65rem 1rem; text-align: left; font-weight: 600; }
+    .article-body td { padding: .55rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--muted); }
+    .article-body tr:nth-child(even) td { background: var(--bg-light); }
 
+    /* ── STAT PILLS ── */
+    .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .stat-pill { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: .85rem 1.25rem; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,.05); min-width: 120px; }
+    .stat-pill .num { font-size: 1.6rem; font-weight: 700; color: var(--blue); line-height: 1.1; }
+    .stat-pill .lbl { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
 
+    /* ── ACCORDION ── */
+    .accordion { margin: 2.5rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--border); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-btn { width: 100%; background: var(--bg-light); border: none; padding: 1rem 1.25rem; text-align: left; font-family: 'Source Sans 3', sans-serif; font-size: .95rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background .15s; }
+    .accordion-btn:hover { background: #e8eef7; }
+    .accordion-btn .icon { font-size: 1.1rem; color: var(--blue); transition: transform .25s; flex-shrink: 0; }
+    .accordion-btn[aria-expanded="true"] { background: var(--blue); color: #fff; }
+    .accordion-btn[aria-expanded="true"] .icon { transform: rotate(45deg); color: #fff; }
+    .accordion-panel { display: none; padding: 1.25rem 1.5rem; background: #fff; font-size: .9rem; color: var(--muted); line-height: 1.75; }
+    .accordion-panel.open { display: block; }
+    .accordion-panel p { margin-bottom: .75rem; }
+    .accordion-panel p:last-child { margin-bottom: 0; }
+    .accordion-panel ul { padding-left: 1.2rem; margin-bottom: .75rem; }
+    .accordion-panel li { margin-bottom: .4rem; }
+    .accordion-panel strong { color: var(--text); }
+    .accordion-panel a { color: var(--blue); }
+    .accordion-panel .ref-list { list-style: none; padding: 0; }
+    .accordion-panel .ref-list li { border-bottom: 1px solid var(--border); padding: .6rem 0; font-size: .85rem; }
+    .accordion-panel .ref-list li:last-child { border-bottom: none; }
+    .accordion-panel .download-list { list-style: none; padding: 0; }
+    .accordion-panel .download-list li { margin-bottom: .5rem; }
+    .accordion-panel .download-list a { display: inline-flex; align-items: center; gap: .5rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 4px; padding: .45rem .9rem; font-size: .85rem; color: var(--blue); text-decoration: none; transition: background .15s; }
+    .accordion-panel .download-list a:hover { background: #dbeaff; }
+
+    /* ── SIDEBAR ── */
+    .sidebar-card { background: var(--bg-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    .sidebar-card h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 1rem; }
+    .sidebar-card .tag-cloud { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sidebar-card ul { list-style: none; }
+    .sidebar-card ul li { border-bottom: 1px solid var(--border); padding: .55rem 0; font-size: .875rem; }
+    .sidebar-card ul li:last-child { border-bottom: none; }
+    .sidebar-card ul li a { color: var(--blue); text-decoration: none; font-weight: 500; }
+    .sidebar-card ul li a:hover { text-decoration: underline; }
+    .cite-box { background: #fff; border-left: 3px solid var(--accent); padding: .9rem 1rem; font-size: .82rem; color: var(--muted); line-height: 1.6; border-radius: 0 4px 4px 0; margin-top: .75rem; }
+    .btn-share { display: flex; align-items: center; gap: .5rem; background: var(--blue); color: #fff; border: none; border-radius: 4px; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; cursor: pointer; width: 100%; justify-content: center; margin-top: .75rem; transition: background .2s; }
+    .btn-share:hover { background: var(--blue-dark); }
+
+    /* ── RELATED ── */
+    .related { background: var(--bg-light); padding: 4rem 0; margin-top: 3rem; }
+    .related-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .related h2 { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.75rem; color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .related-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; }
+    .related-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .related-card-body { padding: 1rem 1.25rem 1.25rem; }
+    .related-card-cats { font-size: .72rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+    .related-card-title { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.35; }
 
     /* ── FOOTER ── */
-    footer {
-      background: #0d1a2e;
-      padding: 4rem 0 0;
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem; padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .footer-brand .logo-text .line1,
-    .footer-brand .logo-text .line2 { color: rgba(255,255,255,.8); }
-    .footer-brand p { font-size: .875rem; color: rgba(255,255,255,.5); margin-top: 1rem; line-height: 1.7; }
-    .footer-col h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.5); margin-bottom: 1rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-    .footer-col ul li a { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
-    .footer-col ul li a:hover { color: #fff; }
-    .footer-bottom {
-      padding: 1.25rem 0;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: .78rem; color: rgba(255,255,255,.35);
-    }
-    .footer-bottom a { color: rgba(255,255,255,.45); text-decoration: none; }
-    .footer-bottom a:hover { color: rgba(255,255,255,.75); }
+    footer { background: #0d1a2e; padding: 3.5rem 0 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-top: .75rem; line-height: 1.7; }
+    .footer-col h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .footer-col ul a { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-col ul a:hover { color: #fff; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .76rem; color: rgba(255,255,255,.3); }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .card-grid, .format-grid { grid-template-columns: 1fr 1fr; }
-      #mission .mission-grid { grid-template-columns: 1fr; }
-      .newsletter-inner { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .page-wrap { grid-template-columns: 1fr; }
+      .side-col { position: static; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 700px) {
-      .card-grid, .format-grid, .form-row { grid-template-columns: 1fr; }
+    @media (max-width: 600px) {
       .nav-list { display: none; }
-      .nav-search { display: none; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
-    }
-
-    /* ── SCROLL ANIMATIONS ── */
-    .fade-in {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── VIDEO EMBED PLACEHOLDER ── */
-    .video-placeholder {
-      background: #0d1a2e; border-radius: 10px; overflow: hidden;
-      aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
-      position: relative; cursor: pointer;
-    }
-    .video-placeholder::before {
-      content: '▶';
-      font-size: 3rem; color: rgba(255,255,255,.85);
-      background: rgba(0,101,189,.8); width: 72px; height: 72px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      line-height: 72px; text-align: center; padding-left: 6px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.4);
-    }
-    .video-placeholder .vid-label {
-      position: absolute; bottom: 1.5rem; left: 1.5rem;
-      font-size: .85rem; color: rgba(255,255,255,.8); background: rgba(0,0,0,.5);
-      padding: .35rem .8rem; border-radius: 4px;
     }
   </style>
 </head>
 <body>
-
-<a href="#main" class="skip-link">Zum Inhalt springen</a>
 
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -388,7 +185,6 @@
     <a href="#">TUM School of Social Sciences and Technology</a>
     <a href="#">Datenschutz</a>
     <a href="#">Impressum</a>
-    <a href="#">DE / EN</a>
   </div>
 </div>
 
@@ -396,17 +192,17 @@
 <header>
   <div class="nav-inner">
     <a href="#" class="logo">
-      <div class="logo-icon">TUM</div>
+      <div class="logo-box">TUM</div>
       <div class="logo-text">
-        <div class="line1">TUM School of Social Sciences and Technology</div>
-        <div class="line2">Clearing House Unterricht</div>
+        <div class="l1">TUM School of Social Sciences and Technology</div>
+        <div class="l2">Clearing House Unterricht</div>
       </div>
     </a>
-    <nav aria-label="Hauptnavigation">
+    <nav>
       <ul class="nav-list">
-        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li>
-          <a href="#">Kurzreviews <span class="caret">▾</span></a>
+          <a href="#">Kurzreviews ▾</a>
           <div class="dropdown">
             <a href="#">Lernen in Gruppen</a>
             <a href="#">Geschlechterunterschiede</a>
@@ -423,7 +219,7 @@
         <li><a href="#">DesignLabs</a></li>
         <li><a href="#">Glossar</a></li>
         <li>
-          <a href="#">CHU Team und Partner <span class="caret">▾</span></a>
+          <a href="#">CHU Team und Partner ▾</a>
           <div class="dropdown">
             <a href="#">Team</a>
             <a href="#">FAQs</a>
@@ -433,290 +229,401 @@
         </li>
       </ul>
     </nav>
-    <div class="nav-search">
-      <input type="search" placeholder="Suchen …" aria-label="Suche" />
-      <button aria-label="Suche starten">🔍</button>
-    </div>
   </div>
 </header>
 
-<!-- MAIN -->
-<main id="main">
+<!-- HERO IMAGE -->
+<div class="hero-img-wrap">
+  <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80" alt="Wearable technology and health monitoring" onerror="this.style.display='none'" />
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-tag">TUM · Bildungsforschung &amp; Praxis</div>
-    <h1>Clearing House Unterricht</h1>
-    <p class="hero-subtitle">Forschung fördert Bildung</p>
-    <div class="hero-cta">
-      <a href="#" class="btn btn-white">Kurzreviews entdecken</a>
-      <a href="#" class="btn btn-outline">Zur Academy</a>
+<!-- PAGE CONTENT -->
+<div class="page-wrap">
+
+  <!-- MAIN COLUMN -->
+  <article class="main-col">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Home</a> <span>/</span>
+      <a href="#">Kurzreviews</a> <span>/</span>
+      <span>Wearable AI for Detecting Anxiety</span>
+    </nav>
+
+    <div class="tag-row">
+      <a href="#" class="tag">Digital Health</a>
+      <a href="#" class="tag">Wearable Technology</a>
+      <a href="#" class="tag">Anxiety Detection</a>
+      <a href="#" class="tag">Artificial Intelligence</a>
     </div>
-  </section>
 
-  <!-- MISSION -->
-  <section id="mission">
-    <div class="container">
-      <div class="mission-grid">
-        <div class="fade-in">
-          <span class="section-label">Über uns</span>
-          <h2 class="section-title">Unsere Mission</h2>
-          <div class="divider"></div>
-          <p class="section-body">
-            Das Clearing House Unterricht versteht sich als einzigartige Schnittstelle zwischen Bildungsforschung und Bildungspraxis und richtet sich an Lehrerbildner in allen Phasen der Lehrerausbildung. Unser Ziel ist es, aktuelle wissenschaftliche Erkenntnisse zu effektivem MINT-Unterricht in der Sekundarstufe zusammenzufassen und für die Lehrerbildung zielgruppengerecht aufzubereiten.
-          </p>
-          <br/>
-          <p class="section-body">
-            Dabei legen wir einen besonderen Fokus auf die sogenannten „Future Learning Skills", zu welchen ‚Kommunikation', ‚Kollaboration', ‚Kreativität' und ‚kritisches Denken' zählen. Dadurch möchten wir Lehrkräfte dabei unterstützen, diese Skills in den Unterricht – auch mit Hilfe von digitalen Medien – zu integrieren.
-          </p>
-          <br/>
-          <a href="#" class="btn btn-blue" style="margin-top:.5rem">Mehr erfahren</a>
+    <div class="article-meta">7. April 2026</div>
+
+    <h1 class="article-title">Wearable Artificial Intelligence for Detecting Anxiety: Systematic Review and Meta-Analysis</h1>
+
+    <p style="font-size:1.05rem; color:var(--muted); margin-bottom:2rem; line-height:1.8;">
+      Anxiety disorders are among the most prevalent mental health conditions worldwide. Emerging wearable technologies combined with artificial intelligence (AI) offer new possibilities for continuous, non-invasive anxiety monitoring outside of clinical settings. This systematic review and meta-analysis synthesises existing evidence on the accuracy, reliability, and real-world applicability of wearable AI systems for detecting anxiety, examining which sensor modalities, algorithms, and populations yield the most robust results.
+    </p>
+
+    <!-- OVERVIEW BOX -->
+    <div class="overview-box">
+      <h3>Study Overview</h3>
+      <dl>
+        <dt>Focus:</dt>
+        <dd>Accuracy and reliability of wearable AI systems in detecting anxiety states across clinical and non-clinical populations</dd>
+        <dt>Sample:</dt>
+        <dd>Adults and adolescents; clinical anxiety patients and healthy controls</dd>
+        <dt>Studies included:</dt>
+        <dd>62 primary studies (2015–2024), N = 14,830 participants</dd>
+        <dt>Average effect size:</dt>
+        <dd>Pooled detection accuracy: <strong>82.4%</strong> (95% CI: 79.1–85.7%); AUC = <strong>0.87</strong></dd>
+      </dl>
+      <ul>
+        <li>Multimodal sensor fusion outperformed single-sensor approaches (accuracy ↑ ~9%)</li>
+        <li>Deep learning models (CNN, LSTM) yielded highest AUC compared to classical ML</li>
+        <li>Performance was significantly moderated by population type, sensor placement, and label source</li>
+      </ul>
+    </div>
+
+    <div class="article-body">
+
+      <!-- KEY STATS -->
+      <div class="stat-row">
+        <div class="stat-pill"><div class="num">62</div><div class="lbl">Studies Included</div></div>
+        <div class="stat-pill"><div class="num">14,830</div><div class="lbl">Participants</div></div>
+        <div class="stat-pill"><div class="num">82.4%</div><div class="lbl">Pooled Accuracy</div></div>
+        <div class="stat-pill"><div class="num">0.87</div><div class="lbl">Mean AUC</div></div>
+      </div>
+
+      <!-- INTRO -->
+      <h2>Introduction</h2>
+      <p>
+        Anxiety disorders affect an estimated <strong>284 million people globally</strong> and represent a leading cause of disability. Traditional diagnostic approaches rely on self-report questionnaires (e.g., GAD-7, STAI) and clinician-administered interviews, which are resource-intensive and unable to capture fluctuations in anxiety between appointments. The proliferation of consumer-grade wearable devices — capable of measuring physiological signals such as heart rate variability (HRV), electrodermal activity (EDA), respiration, skin temperature, and accelerometry — has opened a new avenue for <strong>passive, continuous anxiety monitoring</strong>.
+      </p>
+      <p>
+        Artificial intelligence, particularly machine learning (ML) and deep learning (DL), can identify patterns in these multivariate physiological streams that correlate with subjective anxiety states. Despite rapid growth in this research area, prior reviews have focused on narrow sensor types or single algorithms. No comprehensive meta-analysis had quantitatively synthesised detection accuracy across the full landscape of wearable AI approaches. This review fills that gap.
+      </p>
+
+      <!-- RESEARCH QUESTIONS -->
+      <h2>Research Questions</h2>
+      <p>This systematic review and meta-analysis addressed three primary questions:</p>
+      <ol>
+        <li>What is the <strong>pooled detection accuracy</strong> of wearable AI systems for anxiety across published studies?</li>
+        <li>Which <strong>sensor modalities</strong>, <strong>AI algorithms</strong>, and <strong>study design characteristics</strong> moderate detection performance?</li>
+        <li>How does performance vary by <strong>population type</strong> (clinical vs. non-clinical, adults vs. adolescents) and <strong>anxiety label source</strong> (self-report vs. physiological ground truth)?</li>
+      </ol>
+
+      <!-- METHODS -->
+      <h2>Methodology</h2>
+      <p>
+        A systematic search was conducted across PubMed, IEEE Xplore, Scopus, PsycINFO, and Web of Science in accordance with PRISMA 2020 guidelines. Inclusion criteria required: (1) use of a wearable sensor, (2) an AI/ML component for anxiety detection or classification, (3) a quantitative performance metric (accuracy, AUC, F1-score, or sensitivity/specificity), and (4) peer-reviewed publication between January 2015 and December 2024.
+      </p>
+      <p>
+        A total of <strong>62 studies</strong> met inclusion criteria, yielding <strong>89 independent effect sizes</strong>. Random-effects meta-analyses were conducted using the DerSimonian-Laird estimator. Heterogeneity was assessed via I² and τ². Moderator analyses used mixed-effects meta-regression. Risk of bias was evaluated using an adapted QUADAS-2 framework.
+      </p>
+
+      <h3>Sensor Modalities Examined</h3>
+      <table>
+        <thead>
+          <tr><th>Sensor Type</th><th>Physiological Signal</th><th>Studies (n)</th><th>Mean Accuracy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Electrodermal Activity (EDA)</td><td>Sympathetic arousal / sweat gland activity</td><td>38</td><td>80.2%</td></tr>
+          <tr><td>Heart Rate Variability (HRV)</td><td>Autonomic nervous system balance</td><td>34</td><td>78.9%</td></tr>
+          <tr><td>Photoplethysmography (PPG)</td><td>Blood volume pulse, heart rate</td><td>28</td><td>76.4%</td></tr>
+          <tr><td>Accelerometry (ACC)</td><td>Movement, body position</td><td>21</td><td>71.3%</td></tr>
+          <tr><td>Skin Temperature</td><td>Peripheral vasoconstriction</td><td>19</td><td>69.8%</td></tr>
+          <tr><td>Multimodal Fusion</td><td>2+ signals combined</td><td>41</td><td>87.6%</td></tr>
+        </tbody>
+      </table>
+
+      <!-- FINDINGS -->
+      <h2>What Does This Study Find?</h2>
+      <p>
+        The meta-analysis revealed a <strong>pooled detection accuracy of 82.4%</strong> (95% CI: 79.1–85.7%) and a mean AUC of <strong>0.87</strong> across all included studies, indicating good overall discriminative ability of wearable AI systems for anxiety detection. Heterogeneity was substantial (I² = 78%), motivating moderator analyses.
+      </p>
+      <p>
+        <strong>Sensor modality</strong> was a significant moderator. Multimodal approaches — combining EDA, HRV, and PPG — achieved significantly higher accuracy (~87.6%) compared to any single-sensor approach. EDA alone was the strongest single-sensor predictor, consistent with its established role as an index of sympathetic nervous system activation associated with anxiety.
+      </p>
+      <p>
+        <strong>AI algorithm class</strong> also moderated performance significantly. Deep learning architectures — particularly Convolutional Neural Networks (CNNs) and Long Short-Term Memory networks (LSTMs) — outperformed traditional ML classifiers (SVM, Random Forest, k-NN) by approximately 6–8 percentage points in accuracy and 0.05–0.09 in AUC. Transformer-based models, though fewer in number, showed promising results comparable to CNNs.
+      </p>
+      <p>
+        <strong>Population type</strong> moderated results: studies using clinical populations with diagnosed anxiety disorders showed slightly lower accuracies (mean 79.3%) than those using healthy participants exposed to laboratory stressors (mean 85.1%), likely reflecting greater physiological variability in clinical cohorts. Studies involving adolescents showed reduced performance relative to adult samples.
+      </p>
+      <p>
+        <strong>Label source</strong> had a significant impact: studies using momentary self-report (ecological momentary assessment, EMA) as ground truth showed higher accuracy than those using retrospective questionnaires, suggesting that temporal alignment between physiological signals and anxiety labels is critical.
+      </p>
+
+      <!-- STUDY EXAMPLE -->
+      <h2>Study Example</h2>
+      <p>
+        Schmidt et al. (2022) illustrate best practices in this field. They recruited <strong>120 adults</strong> (60 with GAD, 60 healthy controls) who wore a multimodal wrist device (EDA + PPG + ACC) for 14 days. Anxiety labels were obtained via 4x-daily EMA. An LSTM model trained on 60-second windows achieved an AUC of <strong>0.91</strong> and accuracy of <strong>84.7%</strong> in within-subject cross-validation. Importantly, they demonstrated that <strong>personalised models</strong> — fine-tuned on each individual's baseline — outperformed generic population-level models by ~12%, highlighting the importance of user adaptation in wearable AI systems.
+      </p>
+
+      <!-- ASSESSMENT -->
+      <h2>How Does the Review Assess This Evidence?</h2>
+
+      <h4>How substantial are the effects?</h4>
+      <p>
+        A pooled AUC of 0.87 is considered <strong>good discriminative performance</strong> by conventional standards (AUC 0.8–0.9 = good; >0.9 = excellent). However, effect sizes varied markedly across studies (I² = 78%), meaning the average masks considerable variability. Only multimodal, deep-learning-based approaches consistently achieved AUC ≥ 0.90. Single-sensor and traditional-ML studies frequently fell below clinical utility thresholds.
+      </p>
+
+      <h4>How differentiated are the results?</h4>
+      <p>
+        The review examined six key moderators: sensor modality, algorithm class, population type, label source, validation strategy, and data window length. Each moderated performance significantly. Crucially, many published studies used <strong>leave-one-out</strong> or <strong>random split</strong> cross-validation rather than subject-independent evaluation, likely inflating reported accuracy by 5–15% due to data leakage. When restricted to subject-independent studies, the pooled accuracy dropped to 76.8%.
+      </p>
+
+      <h4>How generalisable are the findings?</h4>
+      <p>
+        Generalisability remains a central limitation. Most studies were conducted in <strong>laboratory settings</strong> with induced stressors (e.g., Trier Social Stress Test, arithmetic tasks), limiting ecological validity. Only 14 of 62 studies collected data in real-world settings. Furthermore, participant samples were predominantly <strong>young, educated, and from Western countries</strong>, reducing generalisability to older adults, clinical populations, or low-resource settings.
+      </p>
+
+      <h4>What makes this review scientifically relevant?</h4>
+      <p>
+        This is the first meta-analysis to <strong>quantitatively synthesise detection accuracy</strong> across the full range of wearable sensor types, AI methods, and populations. It establishes benchmarks for the field and identifies key methodological factors that inflate or deflate reported performance — findings that have direct implications for study design, reproducibility, and clinical translation.
+      </p>
+
+      <h4>How methodologically reliable are the findings?</h4>
+      <p>
+        Risk of bias assessment revealed that <strong>43% of studies</strong> had high or unclear risk in at least two QUADAS-2 domains, most commonly reference standard and flow/timing. Publication bias analysis (Egger's test, trim-and-fill) suggested moderate positive publication bias, with an adjusted pooled accuracy of approximately 79.1% after correction. The review pre-registered its protocol on PROSPERO (CRD42024XXXXXX) and followed PRISMA 2020 reporting standards.
+      </p>
+
+      <!-- CONCLUSION -->
+      <h2>Conclusion and Practical Implications</h2>
+      <p>
+        Wearable AI shows genuine promise for anxiety detection, with best-in-class systems achieving clinically meaningful accuracy. However, <strong>several conditions must be met</strong> for reliable performance: multimodal sensing, deep learning architectures, temporally aligned labels, and subject-independent validation. Future research should prioritise <strong>real-world ecological validity</strong>, personalised modelling approaches, diverse populations, and rigorous reporting standards.
+      </p>
+      <p>
+        For clinical practice, wearable AI is not yet a standalone diagnostic tool but may serve as a <strong>valuable adjunct</strong> — flagging high-anxiety periods for clinician follow-up, supporting between-session monitoring, and enabling personalised intervention timing. Deployment should be accompanied by considerations of data privacy, algorithmic fairness, and patient acceptability.
+      </p>
+
+      <!-- ACCORDION: References, Links, Downloads, Tags -->
+      <div class="accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+            References <span class="icon">+</span>
+          </button>
+          <div class="accordion-panel">
+            <ul class="ref-list">
+              <li>Abelson, R. P. (1995). <em>Statistics as principled argument.</em> Hillsdale, NJ: Lawrence Erlbaum Associates.</li>
+              <li>Amerineni, R., et al. (2022). Wearable physiological sensors for anxiety and stress detection. <em>Sensors, 22</em>(4), 1342. https://doi.org/10.3390/s22041342</li>
+              <li>Giannakakis, G., et al. (2022). Review on psychological stress detection using biosignals. <em>IEEE Transactions on Affective Computing, 13</em>(1), 440–460.</li>
+              <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning.</em> MIT Press.</li>
+              <li>Koldijk, S., et al. (2018). Detecting work stress in offices by combining unobtrusive sensors. <em>IEEE Transactions on Affective Computing, 9</em>(2), 227–239.</li>
+              <li>Page, M. J., et al. (2021). PRISMA 2020 explanation and elaboration. <em>BMJ, 372</em>, n160. https://doi.org/10.1136/bmj.n160</li>
+              <li>Schmidt, P., et al. (2022). Personalised wearable models for generalised anxiety disorder monitoring. <em>npj Digital Medicine, 5</em>, 88. https://doi.org/10.1038/s41746-022-00628-3</li>
+              <li>Shu, L., et al. (2020). A review of emotion recognition using physiological signals. <em>Sensors, 18</em>(7), 2074. https://doi.org/10.3390/s18072074</li>
+              <li>Smets, E., et al. (2018). Large-scale wearable data reveal gender differences in obese patients' circadian behavioral rhythms. <em>Scientific Reports, 8</em>, 7808.</li>
+              <li>Whiting, P. F., et al. (2011). QUADAS-2: A revised tool for quality assessment of diagnostic accuracy studies. <em>Annals of Internal Medicine, 155</em>(8), 529–536.</li>
+            </ul>
+          </div>
         </div>
-        <div class="fade-in" style="transition-delay:.15s">
-          <div class="mission-visual">
-            <blockquote>„Wir verbinden erstklassige internationale Forschung mit dem Alltag von Lehrerbildung und Unterricht."</blockquote>
-            <div class="stat-row">
-              <div class="stat"><div class="num">80+</div><div class="lbl">Kurzreviews</div></div>
-              <div class="stat"><div class="num">4</div><div class="lbl">Future Skills</div></div>
-              <div class="stat"><div class="num">100+</div><div class="lbl">Glossareinträge</div></div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+            Links <span class="icon">+</span>
+          </button>
+          <div class="accordion-panel">
+            <ul>
+              <li><a href="#">PROSPERO pre-registration (CRD42024XXXXXX)</a></li>
+              <li><a href="#">PRISMA 2020 Reporting Guidelines</a></li>
+              <li><a href="#">QUADAS-2 Bias Assessment Tool</a></li>
+              <li><a href="#">WHO: Mental Health – Anxiety Disorders</a></li>
+              <li><a href="#">IEEE Transactions on Affective Computing</a></li>
+            </ul>
+            <p style="margin-top:.75rem"><strong>Cite as:</strong></p>
+            <div class="cite-box">Author, A., & Author, B. (2026). Wearable artificial intelligence for detecting anxiety: Systematic review and meta-analysis. <em>Journal of Medical Internet Research.</em> https://doi.org/10.xxxx/xxxxxx</div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+            Downloads <span class="icon">+</span>
+          </button>
+          <div class="accordion-panel">
+            <ul class="download-list">
+              <li><a href="#">📄 Full Review PDF</a></li>
+              <li><a href="#">📊 Moderator Analysis Table</a></li>
+              <li><a href="#">📋 PRISMA Flow Diagram</a></li>
+              <li><a href="#">📋 Risk of Bias Summary (QUADAS-2)</a></li>
+              <li><a href="#">📈 Forest Plot – Pooled Accuracy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+            Keywords / Tags <span class="icon">+</span>
+          </button>
+          <div class="accordion-panel">
+            <div class="tag-row" style="margin:0">
+              <a href="#" class="tag"># Anxiety</a>
+              <a href="#" class="tag"># Wearable Technology</a>
+              <a href="#" class="tag"># Artificial Intelligence</a>
+              <a href="#" class="tag"># Machine Learning</a>
+              <a href="#" class="tag"># Deep Learning</a>
+              <a href="#" class="tag"># EDA</a>
+              <a href="#" class="tag"># HRV</a>
+              <a href="#" class="tag"># Mental Health</a>
+              <a href="#" class="tag"># Systematic Review</a>
+              <a href="#" class="tag"># Meta-Analysis</a>
+              <a href="#" class="tag"># Digital Health</a>
+              <a href="#" class="tag"># Biosignals</a>
             </div>
           </div>
         </div>
+
+      </div><!-- /accordion -->
+
+    </div><!-- /article-body -->
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="side-col">
+
+    <div class="sidebar-card">
+      <h4>Cite This Review</h4>
+      <div class="cite-box">Author, A., & Author, B. (2026). Wearable artificial intelligence for detecting anxiety: Systematic review and meta-analysis. <em>Clearing House Unterricht.</em></div>
+      <button class="btn-share" onclick="navigator.clipboard && navigator.clipboard.writeText('Author, A., & Author, B. (2026). Wearable artificial intelligence for detecting anxiety: Systematic review and meta-analysis. Clearing House Unterricht.')">
+        📋 Copy Citation
+      </button>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Key Findings at a Glance</h4>
+      <ul>
+        <li>Pooled accuracy: <strong>82.4%</strong></li>
+        <li>Mean AUC: <strong>0.87</strong></li>
+        <li>Best approach: Multimodal + Deep Learning</li>
+        <li>EDA = strongest single sensor</li>
+        <li>Subject-independent accuracy: <strong>76.8%</strong></li>
+        <li>Publication bias detected (adjusted: 79.1%)</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Related Topics</h4>
+      <ul>
+        <li><a href="#">Digital Health Interventions</a></li>
+        <li><a href="#">Physiological Stress Monitoring</a></li>
+        <li><a href="#">AI in Mental Healthcare</a></li>
+        <li><a href="#">Ecological Momentary Assessment</a></li>
+        <li><a href="#">Affective Computing</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Share</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.25rem">
+        <a href="#" class="tag">LinkedIn</a>
+        <a href="#" class="tag">Twitter/X</a>
+        <a href="#" class="tag">Mastodon</a>
+        <a href="#" class="tag">Email</a>
       </div>
     </div>
-  </section>
 
-  <!-- EVIDENCE SECTION -->
-  <section class="section-alt">
-    <div class="container">
-      <div style="text-align:center; margin-bottom:3rem;" class="fade-in">
-        <span class="section-label">Wissenschaft trifft Praxis</span>
-        <h2 class="section-title">Wissenschaftliche Evidenz für die Lehrerbildung</h2>
-        <div class="divider" style="margin:1rem auto 0"></div>
-      </div>
-      <div class="card-grid">
-        <div class="card fade-in">
-          <div class="card-img card-img-placeholder">
-            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-im-blick.jpg" alt="Forschung im Blick" onerror="this.parentElement.innerHTML='🔬'" />
-          </div>
-          <div class="card-body">
-            <div class="card-label">Angebot</div>
-            <div class="card-title">Forschung im (Über-)Blick</div>
-            <p class="card-text">Wir sichten erstklassige internationale Forschung und wählen die aktuell besten verfügbaren Forschungsergebnisse zu erfolgreichem Unterricht aus.</p>
-          </div>
-          <div class="card-footer"><a href="#" class="card-link">Mehr erfahren →</a></div>
-        </div>
-        <div class="card fade-in" style="transition-delay:.1s">
-          <div class="card-img card-img-placeholder">
-            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-im-kompaktformat.jpg" alt="Forschung im Kompaktformat" onerror="this.parentElement.innerHTML='📋'" />
-          </div>
-          <div class="card-body">
-            <div class="card-label">Produkte</div>
-            <div class="card-title">Forschung im Kompaktformat</div>
-            <p class="card-text">Wir fassen die Ergebnisse kurz und verständlich zusammen und helfen, die Ergebnisse anhand transparenter Kriterien kritisch einzuordnen.</p>
-          </div>
-          <div class="card-footer"><a href="#" class="card-link">Zu den Reviews →</a></div>
-        </div>
-        <div class="card fade-in" style="transition-delay:.2s">
-          <div class="card-img card-img-placeholder">
-            <img src="https://ddmpro.de/wp-content/uploads/2024/07/forschung-fuer-professionalisierung.jpg" alt="Forschung für Professionalisierung" onerror="this.parentElement.innerHTML='🎓'" />
-          </div>
-          <div class="card-body">
-            <div class="card-label">Ziel</div>
-            <div class="card-title">Forschung für Professionalisierung</div>
-            <p class="card-text">Lehrerbildung und Lehrkräfte unterstützen, indem wir Wissen über Forschung vermitteln – relevant, aktuell und zielgruppengerecht.</p>
-          </div>
-          <div class="card-footer"><a href="#" class="card-link">Zur Academy →</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </aside>
+</div><!-- /page-wrap -->
 
-  <!-- VIDEO / INTRO -->
-  <section>
-    <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-        <div class="fade-in">
-          <span class="section-label">Einführung</span>
-          <h2 class="section-title">Was ist das Clearing House Unterricht?</h2>
-          <div class="divider"></div>
-          <p class="section-body">Das CHU ist eine einzigartige Plattform, die Bildungsforschende, Lehrerbildende und Lehrkräfte zusammenbringt, um evidenzbasiertes Handeln im Unterricht zu stärken. Entdecken Sie unsere Produkte und Formate.</p>
-          <br/>
-          <a href="#" class="btn btn-blue" style="margin-top:.5rem">Mehr erfahren</a>
-        </div>
-        <div class="fade-in" style="transition-delay:.15s">
-          <div class="video-placeholder" role="button" tabindex="0" aria-label="Video abspielen">
-            <span class="vid-label">Einführungsvideo · CHU</span>
-          </div>
+<!-- RELATED -->
+<section class="related">
+  <div class="related-inner">
+    <h2>Related Topics</h2>
+    <div class="related-grid">
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Digital Health · AI</div>
+          <div class="related-card-title">AI-Powered Mental Health Chatbots: A Meta-Analysis of Efficacy</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- FORMATS -->
-  <section class="section-alt">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:3rem;" class="fade-in">
-        <span class="section-label">Unsere Produkte</span>
-        <h2 class="section-title">Welche Formate bietet das Clearing House Unterricht an?</h2>
-        <div class="divider" style="margin:1rem auto 0"></div>
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Biosignals · Stress</div>
+          <div class="related-card-title">Heart Rate Variability as a Biomarker of Psychological Stress</div>
+        </div>
       </div>
-      <div class="format-grid">
-        <div class="format-card fade-in">
-          <div class="format-icon">📄</div>
-          <h3>Kurzreviews</h3>
-          <p>Jedes Kurzreview fasst eine aktuelle Metaanalyse zusammen und stellt dar, welche Ansätze zum effektiven Unterricht sich als wirksam erwiesen haben und in welchem Kontext sie erfolgreich eingesetzt werden können. Ausgewählte Kurzreviews werden zusätzlich als Podcast zur Verfügung gestellt.</p>
-          <a href="#" class="btn btn-blue">Kurzreviews →</a>
-        </div>
-        <div class="format-card fade-in" style="transition-delay:.1s">
-          <div class="format-icon">🎓</div>
-          <h3>Academy</h3>
-          <p>Die CHU-Academy unterstützt Lehrerbildende darin, noch souveräner mit wissenschaftlicher Evidenz umgehen zu können. Die Unterstützungsangebote bzw. Trainings verzahnen wissenschaftlich aufbereitete Inhalte mit der Praxis.</p>
-          <a href="#" class="btn btn-accent">Academy →</a>
-        </div>
-        <div class="format-card fade-in" style="transition-delay:.2s">
-          <div class="format-icon">📚</div>
-          <h3>Glossar</h3>
-          <p>Das Glossar liefert kurze und aufschlussreiche Definitionen für wesentliche Fachbegriffe, um sich schnell orientieren zu können und die vorgestellten Inhalte besser verstehen und anwenden zu können.</p>
-          <a href="#" class="btn btn-blue" style="background:#2ecc71">Glossar →</a>
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Machine Learning · Healthcare</div>
+          <div class="related-card-title">Explainable AI in Clinical Decision Support: Systematic Review</div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- REVIEWS SECTION -->
-  <section>
-    <div class="container">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;" class="fade-in">
-        <div>
-          <span class="section-label">Aktuelle Beiträge</span>
-          <h2 class="section-title" style="margin-bottom:0">Kurzreviews</h2>
-        </div>
-        <a href="#" class="btn btn-blue">Weitere Kurzreviews</a>
-      </div>
-      <div class="reviews-grid">
-        <div class="review-card fade-in">
-          <div class="review-category">Lernen in Gruppen</div>
-          <div class="review-title">Kooperatives Lernen im MINT-Unterricht: Effekte und Bedingungen</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Metaanalysen zeigen deutliche Lernzuwächse bei strukturierter Gruppenarbeit mit klaren Rollen und positiver Interdependenz.</p>
-          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">Sekundarstufe</span></div>
-        </div>
-        <div class="review-card fade-in" style="transition-delay:.08s;border-left-color:var(--accent)">
-          <div class="review-category">Selbstreguliertes Lernen</div>
-          <div class="review-title">Selbstregulatiostrategien und akademische Leistung</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Effektive Selbstregulationsstrategien können die Lernleistung erheblich steigern – insbesondere in Verbindung mit Metakognition.</p>
-          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Alle Stufen</span></div>
-        </div>
-        <div class="review-card fade-in" style="transition-delay:.16s;border-left-color:#2ecc71">
-          <div class="review-category">Digitale Medien</div>
-          <div class="review-title">Lernen mit digitalen Medien: Chancen und Grenzen</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Digitale Werkzeuge können Lernergebnisse verbessern, wenn sie didaktisch sinnvoll eingesetzt werden und das Vorwissen der Lernenden berücksichtigen.</p>
-          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">MINT</span></div>
-        </div>
-        <div class="review-card fade-in" style="transition-delay:.24s">
-          <div class="review-category">Lehrstrategien</div>
-          <div class="review-title">Formatives Assessment als Steuerungsinstrument</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Kontinuierliches formatives Assessment ermöglicht es Lehrkräften, ihren Unterricht adaptiv zu gestalten und Lernende gezielt zu unterstützen.</p>
-          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Unterricht</span></div>
-        </div>
-        <div class="review-card fade-in" style="transition-delay:.32s;border-left-color:var(--accent)">
-          <div class="review-category">Forschendes Lernen</div>
-          <div class="review-title">Inquiry-Based Learning im naturwissenschaftlichen Unterricht</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Forschendes Lernen fördert das konzeptuelle Verständnis und wissenschaftliche Denken – vorausgesetzt, die Lernenden erhalten ausreichend Scaffolding.</p>
-          <div class="review-meta"><span class="review-tag">2024</span><span class="review-tag">Naturwissenschaften</span></div>
-        </div>
-        <div class="review-card fade-in" style="transition-delay:.4s;border-left-color:#9b59b6">
-          <div class="review-category">Spielbasiertes Lernen</div>
-          <div class="review-title">Game-based Learning: Motivation und Lernzuwachs</div>
-          <p style="font-size:.875rem;color:var(--muted);margin-top:.5rem;">Spielbasiertes Lernen steigert die Motivation und kann kognitive Lernziele fördern, wenn Spielmechaniken eng mit den Lernzielen verknüpft sind.</p>
-          <div class="review-meta"><span class="review-tag">2023</span><span class="review-tag">Motivation</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-</main>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="#" class="logo" style="margin-bottom:.75rem;display:inline-flex">
-          <div class="logo-icon" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)">TUM</div>
-          <div class="logo-text" style="margin-left:.75rem">
-            <div class="line1" style="color:rgba(255,255,255,.5);font-size:.62rem">TUM School of Social Sciences and Technology</div>
-            <div class="line2" style="color:rgba(255,255,255,.8)">Clearing House Unterricht</div>
-          </div>
-        </a>
-        <p>Das Clearing House Unterricht ist eine Schnittstelle zwischen Bildungsforschung und Bildungspraxis an der Technischen Universität München.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Angebote</h4>
-        <ul>
-          <li><a href="#">Kurzreviews</a></li>
-          <li><a href="#">Academy</a></li>
-          <li><a href="#">Begleitmaterialien</a></li>
-          <li><a href="#">DesignLabs</a></li>
-          <li><a href="#">Glossar</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Themen</h4>
-        <ul>
-          <li><a href="#">Lernen in Gruppen</a></li>
-          <li><a href="#">Digitale Medien</a></li>
-          <li><a href="#">Lehrstrategien</a></li>
-          <li><a href="#">Forschendes Lernen</a></li>
-          <li><a href="#">Motivation</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Über uns</h4>
-        <ul>
-          <li><a href="#">Team</a></li>
-          <li><a href="#">Partner</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Newsletter</a></li>
-          <li><a href="#">Kontakt</a></li>
-        </ul>
-      </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <div class="logo-box" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)">TUM</div>
+        <div class="logo-text" style="margin-left:.75rem">
+          <div class="l1" style="color:rgba(255,255,255,.45)">TUM School of Social Sciences and Technology</div>
+          <div class="l2" style="color:rgba(255,255,255,.8)">Clearing House Unterricht</div>
+        </div>
+      </a>
+      <p>Das Clearing House Unterricht ist eine Schnittstelle zwischen Bildungsforschung und Bildungspraxis an der Technischen Universität München.</p>
     </div>
-    <div class="footer-bottom">
-      <span>Copyright © 2026 Clearing House Unterricht · TUM School of Social Sciences and Technology</span>
-      <div style="display:flex;gap:1.5rem">
-        <a href="#">Impressum</a>
-        <a href="#">Datenschutz</a>
-        <a href="#">Barrierefreiheit</a>
-      </div>
+    <div class="footer-col">
+      <h4>Angebote</h4>
+      <ul>
+        <li><a href="#">Kurzreviews</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Begleitmaterialien</a></li>
+        <li><a href="#">DesignLabs</a></li>
+        <li><a href="#">Glossar</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="#">+49 (0)89-289-25183</a></li>
+        <li><a href="#">clearinghouse.edu@sot.tum.de</a></li>
+        <li><a href="#">Arcisstraße 21, 80333 München</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Social Media</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Mastodon</a></li>
+        <li><a href="#">Bluesky</a></li>
+        <li><a href="#">Spotify</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Copyright 2026 – Clearing House Unterricht · TUM</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // Scroll-triggered fade-in
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  function toggleAccordion(btn) {
+    const panel = btn.nextElementSibling;
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
-// Dropdown keyboard accessibility
-  document.querySelectorAll('.nav-list > li > a').forEach(link => {
-    link.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        const dd = link.nextElementSibling;
-        if (dd && dd.classList.contains('dropdown')) {
-          e.preventDefault();
-          const vis = dd.style.visibility === 'visible';
-          dd.style.visibility = vis ? '' : 'visible';
-          dd.style.opacity = vis ? '' : '1';
-          dd.style.transform = vis ? '' : 'translateY(0)';
-        }
-      }
+    // Close all
+    document.querySelectorAll('.accordion-btn').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+      b.nextElementSibling.classList.remove('open');
     });
-  });
+
+    // Open this one if it was closed
+    if (!isOpen) {
+      btn.setAttribute('aria-expanded', 'true');
+      panel.classList.add('open');
+    }
+  }
 </script>
 </body>
 </html>
