@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wearable Artificial Intelligence for Detecting Anxiety – Systematic Review and Meta-Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0065bd;
+      --blue-dark: #003e73;
+      --blue-light: #5ba4cf;
+      --accent: #e37222;
+      --text: #1a1a2e;
+      --muted: #5c6370;
+      --bg: #ffffff;
+      --bg-light: #f4f7fb;
+      --border: #d0d9e8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Source Sans 3", sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; font-size: 16px; }
+
+    .top-bar { background: var(--blue-dark); padding: .3rem 0; font-size: .76rem; }
+    .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: flex-end; gap: 1.5rem; }
+    .top-bar a { color: rgba(255,255,255,.7); text-decoration: none; }
+    .top-bar a:hover { color: #fff; }
+
+    header { background: var(--blue); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.18); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 2rem; height: 68px; }
+    .logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; flex-shrink: 0; }
+    .logo-box { background: #fff; border-radius: 4px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .95rem; color: var(--blue); }
+    .logo-text .l1 { font-size: .6rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+    .logo-text .l2 { font-size: .9rem; color: #fff; font-weight: 700; }
+    nav { flex: 1; }
+    .nav-list { display: flex; list-style: none; justify-content: flex-end; height: 68px; }
+    .nav-list > li { position: relative; display: flex; align-items: center; }
+    .nav-list > li > a { color: rgba(255,255,255,.9); text-decoration: none; font-size: .875rem; font-weight: 500; padding: 0 .9rem; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: background .2s, border-color .2s; white-space: nowrap; }
+    .nav-list > li > a:hover { background: rgba(255,255,255,.12); border-bottom-color: var(--accent); }
+    .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,.13); border-top: 3px solid var(--blue); border-radius: 0 0 6px 6px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: .2s; z-index: 300; }
+    .nav-list > li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown a { display: block; padding: .6rem 1.1rem; color: var(--text); text-decoration: none; font-size: .85rem; border-bottom: 1px solid var(--border); transition: background .15s; }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: var(--bg-light); color: var(--blue); }
+
+    .hero-img-wrap { position: relative; overflow: hidden; max-height: 320px; background: #1a2a3a; }
+    .hero-img-wrap img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .hero-img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,30,60,.55)); }
+
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
+    .main-col { min-width: 0; }
+    .side-col { position: sticky; top: 88px; }
+
+    .breadcrumb { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: var(--muted); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .tag { display: inline-block; background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; color: var(--blue); font-weight: 600; text-decoration: none; transition: background .15s; }
+    .tag:hover { background: #dbeaff; }
+
+    .article-meta { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+    .article-title { font-family: "Source Serif 4", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: .4rem; color: var(--text); }
+    .article-subtitle { font-family: "Source Serif 4", serif; font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 700; color: var(--blue); margin-bottom: 1.25rem; }
+
+    .overview-box { background: var(--bg-light); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+    .overview-box h3 { font-family: "Source Serif 4", serif; font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    .article-body h2 { font-family: "Source Serif 4", serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 2.25rem 0 .75rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); }
+    .article-body h4 { font-size: .95rem; font-weight: 700; color: var(--blue); margin: 1.25rem 0 .4rem; text-transform: uppercase; letter-spacing: .05em; }
+    .article-body p { color: var(--muted); margin-bottom: 1rem; }
+    .article-body ol, .article-body ul { padding-left: 1.4rem; margin-bottom: 1rem; color: var(--muted); }
+    .article-body li { margin-bottom: .4rem; }
+    .article-body strong { color: var(--text); }
+
+    .article-body table, .overview-box table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
+    .article-body th, .overview-box th { background: #f3f6fb; color: var(--text); padding: .7rem 1rem; text-align: left; font-weight: 700; width: 36%; border: 1px solid var(--border); vertical-align: top; }
+    .article-body td, .overview-box td { padding: .7rem 1rem; border: 1px solid var(--border); vertical-align: top; color: var(--muted); background: #fff; }
+
+    .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .stat-pill { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: .85rem 1.25rem; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,.05); min-width: 120px; }
+    .stat-pill .num { font-size: 1.6rem; font-weight: 700; color: var(--blue); line-height: 1.1; }
+    .stat-pill .lbl { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+
+    .accordion { margin: 2.5rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--border); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-btn { width: 100%; background: var(--bg-light); border: none; padding: 1rem 1.25rem; text-align: left; font-family: "Source Sans 3", sans-serif; font-size: .95rem; font-weight: 700; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background .15s; }
+    .accordion-btn:hover { background: #e8eef7; }
+    .accordion-btn .icon { font-size: 1.1rem; color: var(--blue); transition: transform .25s; flex-shrink: 0; }
+    .accordion-btn[aria-expanded="true"] { background: var(--blue); color: #fff; }
+    .accordion-btn[aria-expanded="true"] .icon { transform: rotate(45deg); color: #fff; }
+    .accordion-panel { display: none; padding: 1.25rem 1.5rem; background: #fff; font-size: .9rem; color: var(--muted); line-height: 1.75; }
+    .accordion-panel.open { display: block; }
+    .accordion-panel .ref-list { list-style: none; padding: 0; }
+    .accordion-panel .ref-list li { border-bottom: 1px solid var(--border); padding: .6rem 0; font-size: .85rem; }
+    .accordion-panel .ref-list li:last-child { border-bottom: none; }
+
+    .sidebar-card { background: var(--bg-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    .sidebar-card h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 1rem; }
+    .sidebar-card .tag-cloud { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sidebar-card ul { list-style: none; }
+    .sidebar-card ul li { border-bottom: 1px solid var(--border); padding: .55rem 0; font-size: .875rem; }
+    .sidebar-card ul li:last-child { border-bottom: none; }
+    .sidebar-card ul li a { color: var(--blue); text-decoration: none; font-weight: 500; }
+    .sidebar-card ul li a:hover { text-decoration: underline; }
+    .cite-box { background: #fff; border-left: 3px solid var(--accent); padding: .9rem 1rem; font-size: .82rem; color: var(--muted); line-height: 1.6; border-radius: 0 4px 4px 0; margin-top: .75rem; }
+    .btn-share { display: flex; align-items: center; gap: .5rem; background: var(--blue); color: #fff; border: none; border-radius: 4px; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; cursor: pointer; width: 100%; justify-content: center; margin-top: .75rem; transition: background .2s; }
+    .btn-share:hover { background: var(--blue-dark); }
+
+    .related { background: var(--bg-light); padding: 4rem 0; margin-top: 3rem; }
+    .related-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .related h2 { font-family: "Source Serif 4", serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.75rem; color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .related-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; }
+    .related-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .related-card-body { padding: 1rem 1.25rem 1.25rem; }
+    .related-card-cats { font-size: .72rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+    .related-card-title { font-family: "Source Serif 4", serif; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+
+    footer { background: #0d1a2e; padding: 3.5rem 0 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-top: .75rem; line-height: 1.7; }
+    .footer-col h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .footer-col ul a, .footer-col ul li { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-col ul a:hover { color: #fff; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .76rem; color: rgba(255,255,255,.3); }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .side-col { position: static; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-list { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+      .page-wrap { padding: 2rem 1rem 3rem; }
+      .top-bar-inner, .nav-inner, .related-inner, .footer-inner, .footer-bottom { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#">University of Graz</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Imprint</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-box">UG</div>
+        <div class="logo-text">
+          <div class="l1">University of Graz</div>
+          <div class="l2">Topics in Cognitive Psychology: Psychological Interventions Using Digital Technologies</div>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#">Home</a></li>
+          <li>
+            <a href="#">Topics ▾</a>
+            <div class="dropdown">
+              <a href="#">Digital Mental Health</a>
+              <a href="#">Wearables</a>
+              <a href="#">AI in Psychology</a>
+              <a href="#">Intervention Research</a>
+            </div>
+          </li>
+          <li><a href="#">Seminar</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Research</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero-img-wrap">
+    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80" alt="Wearable technology and health monitoring" onerror="this.style.display='none'" />
+  </div>
+
+  <div class="page-wrap">
+    <article class="main-col">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Home</a> <span>/</span>
+        <a href="#">Topics</a> <span>/</span>
+        <span>Wearable AI for Detecting Anxiety</span>
+      </nav>
+
+      <div class="tag-row">
+        <a href="#" class="tag">anxiety</a>
+        <a href="#" class="tag">artificial intelligence</a>
+        <a href="#" class="tag">wearable devices</a>
+        <a href="#" class="tag">machine learning</a>
+        <a href="#" class="tag">systematic review</a>
+      </div>
+
+      <div class="article-meta">Abd-alrazaq et al. (2023) · Journal of Medical Internet Research</div>
+      <h1 class="article-title">Wearable Artificial Intelligence for Detecting Anxiety:</h1>
+      <p class="article-subtitle">Systematic Review and Meta-Analysis</p>
+
+      <div class="overview-box">
+        <h3>Key Findings at a Glance</h3>
+        <table>
+          <tbody>
+            <tr><th>Records identified</th><td>918</td></tr>
+            <tr><th>Studies included</th><td>21 (2.3%)</td></tr>
+            <tr><th>Pooled mean accuracy</th><td>0.82 (95% CI: 0.71–0.89)</td></tr>
+            <tr><th>Pooled mean sensitivity</th><td>0.79 (95% CI: 0.57–0.91)</td></tr>
+            <tr><th>Pooled mean specificity</th><td>0.92 (95% CI: 0.68–0.98)</td></tr>
+            <tr><th>Significant moderators</th><td>None found</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="article-body">
+        <div class="stat-row">
+          <div class="stat-pill"><div class="num">918</div><div class="lbl">Records</div></div>
+          <div class="stat-pill"><div class="num">21</div><div class="lbl">Studies Included</div></div>
+          <div class="stat-pill"><div class="num">0.82</div><div class="lbl">Mean Accuracy</div></div>
+          <div class="stat-pill"><div class="num">0.92</div><div class="lbl">Specificity</div></div>
+        </div>
+
+        <p>Anxiety disorders are among the most prevalent mental disorders worldwide. Wearable artificial intelligence (AI) — the combination of AI technology and wearable devices — has been widely used to detect and predict anxiety disorders automatically, objectively, and more efficiently. This systematic review and meta-analysis assesses the performance of wearable AI in detecting and predicting anxiety.</p>
+
+        <h2>Study Overview</h2>
+        <table>
+          <tbody>
+            <tr><th>Focus</th><td>Performance of wearable AI in detecting and predicting anxiety</td></tr>
+            <tr><th>Databases searched</th><td>MEDLINE, Embase, PsycINFO, CINAHL, ACM Digital Library, Scopus, IEEE Xplore, Google Scholar</td></tr>
+            <tr><th>Records identified</th><td>918</td></tr>
+            <tr><th>Studies included</th><td>21 (2.3%)</td></tr>
+            <tr><th>Risk of bias tool</th><td>Modified QUADAS-2 (Quality Assessment of Diagnostic Accuracy Studies–Revised)</td></tr>
+            <tr><th>Reporting standard</th><td>PRISMA-DTA</td></tr>
+            <tr><th>PROSPERO registration</th><td>CRD42023387560</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Introduction</h2>
+        <p>Anxiety disorders (ADs) are one of the most common mental disorders worldwide. These include generalized AD, social AD, panic disorder, and various phobia-related disorders. It is estimated that 284 million people worldwide have been diagnosed with AD. Studies have reported that AD affects 14.5% to 33.7% of the population at least once in their lifetime.</p>
+        <p>Currently, ADs are diagnosed primarily through clinical observations, clinical histories, and self-report questionnaires (e.g., the State-Trait Anxiety Inventory). However, these approaches are hampered by significant limitations: subjectivity, reproducibility issues, shortage of mental health professionals, long clinical interview times, and extensive comorbidities. As a result, anxiety is commonly underdetected and undertreated despite its huge disease burden.</p>
+        <p>Wearable AI is the fusion of data obtained from wearables and sophisticated machine learning algorithms. If effectively used, wearable AI can greatly help in the accurate detection and prediction of anxiety. This review is the first systematic review and meta-analysis to evaluate the performance of wearable AI specifically for detecting and predicting anxiety.</p>
+
+        <h2>Research Question</h2>
+        <p>This systematic review and meta-analysis aimed to:</p>
+        <ul>
+          <li>Assess the performance of wearable AI in detecting and predicting anxiety</li>
+          <li>Examine whether performance is moderated by algorithms, device type, data type, data source, reference standard, or validation method</li>
+        </ul>
+
+        <h2>Methodology</h2>
+        <p>The review was conducted in accordance with PRISMA-DTA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses extension for Diagnostic Test Accuracy) and registered in PROSPERO (CRD42023387560).</p>
+        <p>The following 8 electronic databases were searched on October 3, 2022: MEDLINE (via Ovid), Embase (via Ovid), PsycINFO (via Ovid), CINAHL (via EBSCO), ACM Digital Library, Scopus, IEEE Xplore, and Google Scholar. Backward and forward reference list checking was also performed.</p>
+        <p>Two reviewers independently carried out study selection, data extraction, and risk-of-bias assessment. Risk of bias was assessed using a modified version of QUADAS-2 (Quality Assessment of Diagnostic Accuracy Studies–Revised). Evidence was synthesized using both a narrative (text and tables) and statistical (meta-analysis) approach.</p>
+        <p>Of the 918 records identified, 21 studies (2.3%) were included in this review.</p>
+
+        <h2>What Does This Study Find?</h2>
+        <p>A meta-analysis of results from 81% (17/21) of the studies revealed a pooled mean accuracy of 0.82 (95% CI: 0.71–0.89).</p>
+        <p>Meta-analyses of results from 48% (10/21) of the studies showed a pooled mean sensitivity of 0.79 (95% CI: 0.57–0.91) and a pooled mean specificity of 0.92 (95% CI: 0.68–0.98).</p>
+
+        <h2>Moderator Analyses</h2>
+        <p>Subgroup analyses demonstrated that the performance of wearable AI was not significantly moderated by any of the following factors:</p>
+        <ul>
+          <li>Algorithms used</li>
+          <li>Aims of AI (detection vs. prediction)</li>
+          <li>Wearable devices used</li>
+          <li>Status of wearable devices (commercial vs. prototype)</li>
+          <li>Data types</li>
+          <li>Data sources</li>
+          <li>Reference standards</li>
+          <li>Validation methods</li>
+        </ul>
+
+        <h2>How Does the Review Assess This Evidence?</h2>
+        <h4>How Substantial Are the Effects?</h4>
+        <p>A pooled accuracy of 0.82 is promising. However, the wide confidence interval (0.71–0.89) reflects considerable variability across studies. Sensitivity of 0.79 means approximately 1 in 5 anxious individuals would be missed. The performance is not yet sufficient for standalone clinical use.</p>
+        <h4>How Credible Are the Results?</h4>
+        <p>Risk of bias was assessed using a modified QUADAS-2 tool across all 21 included studies. The review followed PRISMA-DTA reporting standards and was pre-registered on PROSPERO, supporting transparency and credibility. The authors explicitly note the GIGO principle — the quality of the meta-analytic conclusions depends on the quality of the primary studies.</p>
+
+        <h2>Conclusion and Practical Implications</h2>
+        <p>Although wearable AI has the potential to detect anxiety, it is not yet advanced enough for clinical use. Until further evidence shows ideal performance, it should be used alongside other clinical assessments.</p>
+        <p>The authors specifically call for:</p>
+        <ul>
+          <li>Wearable device companies to develop devices that can promptly detect anxiety and identify specific high-anxiety time points during the day</li>
+          <li>Further research to differentiate types of anxiety</li>
+          <li>Research to compare the performance of different wearable devices</li>
+          <li>Investigation of combining wearable data with neuroimaging data</li>
+        </ul>
+
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+              Reference <span class="icon">+</span>
+            </button>
+            <div class="accordion-panel">
+              <ul class="ref-list">
+                <li>Abd-alrazaq, A., AlSaad, R., Harfouche, M., Aziz, S., Ahmed, A., Damseh, R., &amp; Sheikh, J. (2023). <em>Wearable Artificial Intelligence for Detecting Anxiety: Systematic Review and Meta-Analysis.</em> Journal of Medical Internet Research, 25, e48754. <a href="https://doi.org/10.2196/48754">https://doi.org/10.2196/48754</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-btn" aria-expanded="false" onclick="toggleAccordion(this)">
+              Keywords / Tags <span class="icon">+</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="tag-row" style="margin:0">
+                <a href="#" class="tag"># anxiety</a>
+                <a href="#" class="tag"># artificial intelligence</a>
+                <a href="#" class="tag"># wearable devices</a>
+                <a href="#" class="tag"># machine learning</a>
+                <a href="#" class="tag"># systematic review</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <aside class="side-col">
+      <div class="sidebar-card">
+        <h4>Cite This Review</h4>
+        <div class="cite-box">Abd-alrazaq, A., AlSaad, R., Harfouche, M., Aziz, S., Ahmed, A., Damseh, R., &amp; Sheikh, J. (2023). Wearable Artificial Intelligence for Detecting Anxiety: Systematic Review and Meta-Analysis. <em>Journal of Medical Internet Research, 25</em>, e48754.</div>
+        <button class="btn-share" onclick="navigator.clipboard && navigator.clipboard.writeText('Abd-alrazaq, A., AlSaad, R., Harfouche, M., Aziz, S., Ahmed, A., Damseh, R., & Sheikh, J. (2023). Wearable Artificial Intelligence for Detecting Anxiety: Systematic Review and Meta-Analysis. Journal of Medical Internet Research, 25, e48754. https://doi.org/10.2196/48754')">
+          Copy Citation
+        </button>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Key Findings at a Glance</h4>
+        <ul>
+          <li>Pooled mean accuracy: <strong>0.82</strong></li>
+          <li>Pooled mean sensitivity: <strong>0.79</strong></li>
+          <li>Pooled mean specificity: <strong>0.92</strong></li>
+          <li>Studies included: <strong>21</strong></li>
+          <li>Significant moderators: <strong>None found</strong></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Related Topics</h4>
+        <ul>
+          <li><a href="#">Digital Mental Health</a></li>
+          <li><a href="#">Wearable Interventions</a></li>
+          <li><a href="#">AI in Clinical Psychology</a></li>
+          <li><a href="#">Diagnostic Accuracy Research</a></li>
+          <li><a href="#">Psychological Interventions Using Digital Technologies</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Topic Tags</h4>
+        <div class="tag-cloud">
+          <a href="#" class="tag">anxiety</a>
+          <a href="#" class="tag">AI</a>
+          <a href="#" class="tag">wearables</a>
+          <a href="#" class="tag">digital health</a>
+          <a href="#" class="tag">meta-analysis</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="related">
+    <div class="related-inner">
+      <h2>Related Topics</h2>
+      <div class="related-grid">
+        <div class="related-card">
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+          <div class="related-card-body">
+            <div class="related-card-cats">Digital Health · AI</div>
+            <div class="related-card-title">AI-Powered Mental Health Chatbots: A Meta-Analysis of Efficacy</div>
+          </div>
+        </div>
+        <div class="related-card">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+          <div class="related-card-body">
+            <div class="related-card-cats">Biosignals · Stress</div>
+            <div class="related-card-title">Heart Rate Variability as a Biomarker of Psychological Stress</div>
+          </div>
+        </div>
+        <div class="related-card">
+          <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+          <div class="related-card-body">
+            <div class="related-card-cats">Machine Learning · Healthcare</div>
+            <div class="related-card-title">Explainable AI in Clinical Decision Support: Systematic Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+          <div class="logo-box" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)">UG</div>
+          <div class="logo-text" style="margin-left:.75rem">
+            <div class="l1" style="color:rgba(255,255,255,.45)">University of Graz</div>
+            <div class="l2" style="color:rgba(255,255,255,.8)">Topics in Cognitive Psychology: Psychological Interventions Using Digital Technologies</div>
+          </div>
+        </a>
+        <p>This page presents course-related review content on digital psychological interventions and cognitive psychology topics.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Institution</h4>
+        <ul>
+          <li>University of Graz</li>
+          <li>Institute context: Cognitive Psychology</li>
+          <li>Digital intervention topics</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Source</h4>
+        <ul>
+          <li>Journal of Medical Internet Research</li>
+          <li>DOI: 10.2196/48754</li>
+          <li><a href="https://doi.org/10.2196/48754">Open DOI Link</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Focus</h4>
+        <ul>
+          <li>Wearable AI</li>
+          <li>Anxiety detection</li>
+          <li>Systematic review</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Copyright 2026 – University of Graz</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#">Imprint</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAccordion(btn) {
+      const panel = btn.nextElementSibling;
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+      document.querySelectorAll(".accordion-btn").forEach((b) => {
+        b.setAttribute("aria-expanded", "false");
+        b.nextElementSibling.classList.remove("open");
+      });
+
+      if (!isOpen) {
+        btn.setAttribute("aria-expanded", "true");
+        panel.classList.add("open");
+      }
+    }
+  </script>
+</body>
+</html>
