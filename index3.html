@@ -46,6 +46,20 @@
     .hero-img-wrap { position: relative; overflow: hidden; max-height: 320px; background: #1a2a3a; }
     .hero-img-wrap img { width: 100%; height: 320px; object-fit: cover; display: block; }
     .hero-img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,30,60,.55)); }
+    .hero-credit {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 2;
+      max-width: min(92%, 560px);
+      padding: .55rem .8rem;
+      background: rgba(13, 26, 46, .78);
+      color: rgba(255,255,255,.88);
+      font-size: .78rem;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-credit a { color: #fff; }
 
     .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
     .main-col { min-width: 0; }
@@ -119,6 +133,10 @@
     .related-card-body { padding: 1rem 1.25rem 1.25rem; }
     .related-card-cats { font-size: .72rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
     .related-card-title { font-family: "Source Serif 4", serif; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+    .related-card-title a { color: inherit; text-decoration: none; }
+    .related-card-title a:hover { color: var(--blue); }
+    .related-card-source { margin-top: .75rem; font-size: .78rem; color: var(--muted); line-height: 1.5; }
+    .related-card-source a { color: var(--blue); text-decoration: none; }
 
     footer { background: #0d1a2e; padding: 3.5rem 0 0; }
     .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
@@ -183,7 +201,10 @@
   </header>
 
   <div class="hero-img-wrap">
-    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80" alt="Wearable technology and health monitoring" onerror="this.style.display='none'" />
+    <img src="pexels-ketut-subiyanto-4426514.jpg" alt="Person wearing a fitness bracelet while using a smartphone" onerror="this.style.display='none'" />
+    <div class="hero-credit">
+      Image credit: ketut-subiyanto via <a href="https://www.pexels.com/photo/crop-woman-with-fitness-bracelet-using-smartphone-4426514/">Pexels</a>
+    </div>
   </div>
 
   <div class="page-wrap">
@@ -373,24 +394,23 @@
       <h2>Related Topics</h2>
       <div class="related-grid">
         <div class="related-card">
-          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+          <img src="pexels-jersy-5670759.jpg" alt="Woman in a face mask touching her head in anxiety" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
           <div class="related-card-body">
-            <div class="related-card-cats">Digital Health · AI</div>
-            <div class="related-card-title">AI-Powered Mental Health Chatbots: A Meta-Analysis of Efficacy</div>
+            <div class="related-card-cats">Wearables · Panic Prediction</div>
+            <div class="related-card-title"><a href="https://medinform.jmir.org/2022/2/e33063/">Panic Attack Prediction Using Wearable Devices and Machine Learning: Development and Cohort Study</a></div>
+            <div class="related-card-source">
+              Image source: JESSICA TICOZZELLI / <a href="https://www.pexels.com/photo/woman-in-face-mask-touching-head-in-anxiety-5670759/">Pexels</a>
+            </div>
           </div>
         </div>
         <div class="related-card">
-          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+          <img src="pexels-shutter-speed-15406294.jpg" alt="Close-up of a smartphone screen displaying social media apps" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
           <div class="related-card-body">
-            <div class="related-card-cats">Biosignals · Stress</div>
-            <div class="related-card-title">Heart Rate Variability as a Biomarker of Psychological Stress</div>
-          </div>
-        </div>
-        <div class="related-card">
-          <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
-          <div class="related-card-body">
-            <div class="related-card-cats">Machine Learning · Healthcare</div>
-            <div class="related-card-title">Explainable AI in Clinical Decision Support: Systematic Review</div>
+            <div class="related-card-cats">Multimodal Sensing · Social Media</div>
+            <div class="related-card-title"><a href="https://dl.acm.org/doi/10.1145/3448117">Person-Centered Predictions of Psychological Constructs with Social Media Contextualized by Multimodal Sensing</a></div>
+            <div class="related-card-source">
+              Image source: Bastian Riccardi / <a href="https://www.pexels.com/photo/close-up-of-a-smartphone-screen-displaying-social-media-app-folder-15406294/">Pexels</a>
+            </div>
           </div>
         </div>
       </div>
