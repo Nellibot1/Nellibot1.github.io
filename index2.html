@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wearable AI for Detecting Anxiety – Systematic Review and Meta-Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0065BD;
+      --blue-dark: #003e73;
+      --blue-light: #5ba4cf;
+      --accent: #e37222;
+      --text: #1a1a2e;
+      --muted: #5c6370;
+      --bg: #ffffff;
+      --bg-light: #f4f7fb;
+      --border: #d0d9e8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Source Sans 3', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; font-size: 16px; }
+
+    .top-bar { background: var(--blue-dark); padding: .3rem 0; font-size: .76rem; }
+    .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: flex-end; gap: 1.5rem; }
+    .top-bar a { color: rgba(255,255,255,.7); text-decoration: none; }
+    .top-bar a:hover { color: #fff; }
+
+    header { background: var(--blue); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.18); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 2rem; height: 68px; }
+    .logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; flex-shrink: 0; }
+    .logo-box { background: #fff; border-radius: 4px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .95rem; color: var(--blue); }
+    .logo-text .l1 { font-size: .6rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+    .logo-text .l2 { font-size: .9rem; color: #fff; font-weight: 700; }
+    nav { flex: 1; }
+    .nav-list { display: flex; list-style: none; justify-content: flex-end; height: 68px; }
+    .nav-list > li { position: relative; display: flex; align-items: center; }
+    .nav-list > li > a { color: rgba(255,255,255,.9); text-decoration: none; font-size: .875rem; font-weight: 500; padding: 0 .9rem; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: background .2s, border-color .2s; white-space: nowrap; }
+    .nav-list > li > a:hover { background: rgba(255,255,255,.12); border-bottom-color: var(--accent); }
+    .dropdown { position: absolute; top: 100%; left: 0; background: #fff; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,.13); border-top: 3px solid var(--blue); border-radius: 0 0 6px 6px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: .2s; z-index: 300; }
+    .nav-list > li:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown a { display: block; padding: .6rem 1.1rem; color: var(--text); text-decoration: none; font-size: .85rem; border-bottom: 1px solid var(--border); transition: background .15s; }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: var(--bg-light); color: var(--blue); }
+
+    .hero-img-wrap { position: relative; overflow: hidden; max-height: 320px; background: #1a2a3a; }
+    .hero-img-wrap img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .hero-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,30,60,.55)); }
+
+    .page-wrap { max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+    .main-col { min-width: 0; }
+
+    .breadcrumb { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: var(--muted); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .tag { display: inline-block; background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; color: var(--blue); font-weight: 600; text-decoration: none; transition: background .15s; }
+    .tag:hover { background: #dbeaff; }
+
+    .article-meta { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+    .article-title { font-family: 'Source Serif 4', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: .4rem; color: var(--text); }
+    .article-subtitle { font-family: 'Source Serif 4', serif; font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 700; color: var(--blue); margin-bottom: 1.25rem; }
+
+    .overview-box { background: var(--bg-light); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+    .overview-box h3 { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    .article-body h2 { font-family: 'Source Serif 4', serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 2.25rem 0 .75rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); }
+    .article-body p { color: var(--muted); margin-bottom: 1rem; }
+
+    .article-body table, .overview-box table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
+    .article-body th, .overview-box th { background: #f3f6fb; color: var(--text); padding: .7rem 1rem; text-align: left; font-weight: 700; width: 36%; border: 1px solid var(--border); vertical-align: top; }
+    .article-body td, .overview-box td { padding: .7rem 1rem; border: 1px solid var(--border); vertical-align: top; color: var(--muted); background: #fff; }
+
+    .related { background: var(--bg-light); padding: 4rem 0; margin-top: 3rem; }
+    .related-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .related h2 { font-family: 'Source Serif 4', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.75rem; color: var(--text); }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .related-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 8px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s; }
+    .related-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .related-card img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .related-card-body { padding: 1rem 1.25rem 1.25rem; }
+    .related-card-cats { font-size: .72rem; color: var(--blue); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+    .related-card-title { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+
+    footer { background: #0d1a2e; padding: 3.5rem 0 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-top: .75rem; line-height: 1.7; }
+    .footer-col h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .footer-col ul a { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-col ul a:hover { color: #fff; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .76rem; color: rgba(255,255,255,.3); }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-list { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+      .page-wrap { padding: 2rem 1rem 3rem; }
+      .top-bar-inner, .nav-inner, .related-inner, .footer-inner, .footer-bottom { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <a href="#">TUM School of Social Sciences and Technology</a>
+    <a href="#">Datenschutz</a>
+    <a href="#">Impressum</a>
+  </div>
+</div>
+
+<header>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-box">TUM</div>
+      <div class="logo-text">
+        <div class="l1">TUM School of Social Sciences and Technology</div>
+        <div class="l2">Clearing House Unterricht</div>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="#">Kurzreviews ▾</a>
+          <div class="dropdown">
+            <a href="#">Lernen in Gruppen</a>
+            <a href="#">Geschlechterunterschiede</a>
+            <a href="#">Forschendes Lernen</a>
+            <a href="#">Selbstreguliertes Lernen</a>
+            <a href="#">Lehrstrategien</a>
+            <a href="#">Spielbasiertes Lernen</a>
+            <a href="#">Lernen mit digitalen Medien</a>
+            <a href="#">Einstellungen &amp; Motivation</a>
+          </div>
+        </li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Begleitmaterialien</a></li>
+        <li><a href="#">DesignLabs</a></li>
+        <li><a href="#">Glossar</a></li>
+        <li>
+          <a href="#">CHU Team und Partner ▾</a>
+          <div class="dropdown">
+            <a href="#">Team</a>
+            <a href="#">FAQs</a>
+            <a href="#">Partner</a>
+            <a href="#">Newsletter</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="hero-img-wrap">
+  <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1400&q=80" alt="Wearable technology and health monitoring" onerror="this.style.display='none'" />
+</div>
+
+<div class="page-wrap">
+  <article class="main-col">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#">Home</a> <span>/</span>
+      <a href="#">Kurzreviews</a> <span>/</span>
+      <span>Wearable AI for Detecting Anxiety</span>
+    </nav>
+
+    <div class="tag-row">
+      <a href="#" class="tag">algorithmic study</a>
+      <a href="#" class="tag">artificial intelligence</a>
+      <a href="#" class="tag">wearable devices</a>
+      <a href="#" class="tag">mental health</a>
+      <a href="#" class="tag">systematic review</a>
+    </div>
+
+    <div class="article-meta">Abdelrazek et al. (2025) · Journal of Medical Internet Research</div>
+    <h1 class="article-title">Wearable Artificial Intelligence for Detecting Anxiety:</h1>
+    <p class="article-subtitle">Systematic Review and Meta-Analysis</p>
+
+    <div class="overview-box">
+      <h3>Key Findings at a Glance</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th>Total records identified</th>
+            <td>918</td>
+          </tr>
+          <tr>
+            <th>Studies included</th>
+            <td>21 (2.3%)</td>
+          </tr>
+          <tr>
+            <th>Pooled sensitivity</th>
+            <td>0.82 (95% CI: 0.71-0.89)</td>
+          </tr>
+          <tr>
+            <th>Pooled specificity</th>
+            <td>0.79 (95% CI: 0.57-0.91)</td>
+          </tr>
+          <tr>
+            <th>AUC</th>
+            <td>0.92 (95% CI: 0.68-0.98)</td>
+          </tr>
+          <tr>
+            <th>Publication bias</th>
+            <td>None found</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="article-body">
+      <h2>Study Overview</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>Focus</th>
+            <td>Use of wearable artificial intelligence systems to detect anxiety.</td>
+          </tr>
+          <tr>
+            <th>Databases searched</th>
+            <td>PubMed, Scopus, Web of Science, PsycINFO, and IEEE Xplore.</td>
+          </tr>
+          <tr>
+            <th>Records identified</th>
+            <td>918</td>
+          </tr>
+          <tr>
+            <th>Studies included</th>
+            <td>21</td>
+          </tr>
+          <tr>
+            <th>Risk of bias tool</th>
+            <td>QUADAS-2</td>
+          </tr>
+          <tr>
+            <th>Reporting standard</th>
+            <td>PRISMA</td>
+          </tr>
+          <tr>
+            <th>PROSPERO registration</th>
+            <td>Not reported</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Introduction</h2>
+      <p>
+        Wearable devices combined with artificial intelligence are increasingly being explored as tools
+        for identifying anxiety through physiological and behavioural data. This systematic review and
+        meta-analysis examined how accurately these systems detect anxiety and how consistent the
+        findings are across the included studies.
+      </p>
+    </div>
+  </article>
+</div>
+
+<section class="related">
+  <div class="related-inner">
+    <h2>Related Topics</h2>
+    <div class="related-grid">
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Digital Health · AI</div>
+          <div class="related-card-title">AI-Powered Mental Health Chatbots: A Meta-Analysis of Efficacy</div>
+        </div>
+      </div>
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Biosignals · Stress</div>
+          <div class="related-card-title">Heart Rate Variability as a Biomarker of Psychological Stress</div>
+        </div>
+      </div>
+      <div class="related-card">
+        <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?w=600&q=70" alt="" onerror="this.style.background='#dbeaff';this.style.height='150px'" />
+        <div class="related-card-body">
+          <div class="related-card-cats">Machine Learning · Healthcare</div>
+          <div class="related-card-title">Explainable AI in Clinical Decision Support: Systematic Review</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+        <div class="logo-box" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.8)">TUM</div>
+        <div class="logo-text" style="margin-left:.75rem">
+          <div class="l1" style="color:rgba(255,255,255,.45)">TUM School of Social Sciences and Technology</div>
+          <div class="l2" style="color:rgba(255,255,255,.8)">Clearing House Unterricht</div>
+        </div>
+      </a>
+      <p>Das Clearing House Unterricht ist eine Schnittstelle zwischen Bildungsforschung und Bildungspraxis an der Technischen Universitat Munchen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Angebote</h4>
+      <ul>
+        <li><a href="#">Kurzreviews</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Begleitmaterialien</a></li>
+        <li><a href="#">DesignLabs</a></li>
+        <li><a href="#">Glossar</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="#">+49 (0)89-289-25183</a></li>
+        <li><a href="#">clearinghouse.edu@sot.tum.de</a></li>
+        <li><a href="#">Arcisstrasse 21, 80333 Munchen</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Social Media</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Mastodon</a></li>
+        <li><a href="#">Bluesky</a></li>
+        <li><a href="#">Spotify</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Copyright 2026 – Clearing House Unterricht · TUM</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
