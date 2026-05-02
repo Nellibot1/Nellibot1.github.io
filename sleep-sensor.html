@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predicting Depression and Anxiety Mood by Wrist-Worn Sleep Sensor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0065bd;
+      --blue-dark: #003e73;
+      --blue-light: #5ba4cf;
+      --accent: #e37222;
+      --text: #1a1a2e;
+      --muted: #5c6370;
+      --bg: #ffffff;
+      --bg-light: #f4f7fb;
+      --border: #d0d9e8;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Source Sans 3", sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; font-size: 16px; }
+    .top-bar { background: var(--blue-dark); padding: .3rem 0; font-size: .76rem; }
+    .top-bar-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: flex-end; gap: 1.5rem; }
+    .top-bar a { color: rgba(255,255,255,.7); text-decoration: none; }
+    .top-bar a:hover { color: #fff; }
+    header { background: var(--blue); position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.18); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 2rem; height: 68px; }
+    .logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; flex-shrink: 0; }
+    .logo-box { width: 52px; height: 52px; object-fit: contain; display: block; background: #fff; border-radius: 2px; }
+    .logo-text .l1 { font-size: .6rem; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .06em; }
+    .logo-text .l2 { font-size: .9rem; color: #fff; font-weight: 700; }
+    nav { flex: 1; }
+    .nav-list { display: flex; list-style: none; justify-content: flex-end; height: 68px; }
+    .nav-list > li { position: relative; display: flex; align-items: center; }
+    .nav-list > li > a { color: rgba(255,255,255,.9); text-decoration: none; font-size: .875rem; font-weight: 500; padding: 0 .9rem; height: 100%; display: flex; align-items: center; border-bottom: 3px solid transparent; transition: background .2s, border-color .2s; white-space: nowrap; }
+    .nav-list > li > a:hover { background: rgba(255,255,255,.12); border-bottom-color: var(--accent); }
+    .hero-img-wrap { position: relative; overflow: hidden; max-height: 320px; background: #1a2a3a; }
+    .hero-img-wrap img { width: 100%; height: 320px; object-fit: cover; display: block; }
+    .hero-img-wrap::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,30,60,.55)); }
+    .hero-credit {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 2;
+      max-width: min(92%, 560px);
+      padding: .55rem .8rem;
+      background: rgba(13, 26, 46, .78);
+      color: rgba(255,255,255,.88);
+      font-size: .78rem;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-credit a { color: #fff; }
+    .page-wrap { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 4rem; display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: start; }
+    .main-col { min-width: 0; }
+    .side-col { position: sticky; top: 88px; }
+    .breadcrumb { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+    .breadcrumb a { color: var(--blue); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { color: var(--muted); }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .tag { display: inline-block; background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; padding: .25rem .75rem; font-size: .78rem; color: var(--blue); font-weight: 600; text-decoration: none; transition: background .15s; }
+    .tag:hover { background: #dbeaff; }
+    .article-meta { font-size: .82rem; color: var(--muted); margin-bottom: .75rem; }
+    .article-title { font-family: "Source Serif 4", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: .4rem; color: var(--text); }
+    .overview-box { background: var(--bg-light); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 1.5rem 1.75rem; margin: 2rem 0; }
+    .overview-box h3 { font-family: "Source Serif 4", serif; font-size: 1rem; font-weight: 700; color: var(--blue); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .06em; }
+    .article-body h2 { font-family: "Source Serif 4", serif; font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 2.25rem 0 .75rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); }
+    .article-body p { color: var(--muted); margin-bottom: 1rem; }
+    .article-body ul { padding-left: 1.4rem; margin-bottom: 1rem; color: var(--muted); }
+    .article-body li { margin-bottom: .4rem; }
+    .article-body strong { color: var(--text); }
+    .article-body table, .overview-box table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
+    .article-body th, .overview-box th { background: #f3f6fb; color: var(--text); padding: .7rem 1rem; text-align: left; font-weight: 700; width: 36%; border: 1px solid var(--border); vertical-align: top; }
+    .article-body td, .overview-box td { padding: .7rem 1rem; border: 1px solid var(--border); vertical-align: top; color: var(--muted); background: #fff; }
+    .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .stat-pill { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: .85rem 1.25rem; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,.05); min-width: 120px; }
+    .stat-pill .num { font-size: 1.6rem; font-weight: 700; color: var(--blue); line-height: 1.1; }
+    .stat-pill .lbl { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+    .sidebar-card { background: var(--bg-light); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    .sidebar-card h4 { font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 1rem; }
+    .sidebar-card ul { list-style: none; }
+    .sidebar-card ul li { border-bottom: 1px solid var(--border); padding: .55rem 0; font-size: .875rem; }
+    .sidebar-card ul li:last-child { border-bottom: none; }
+    .sidebar-card ul li a { color: var(--blue); text-decoration: none; font-weight: 500; }
+    .sidebar-card ul li a:hover { text-decoration: underline; }
+    .cite-box { background: #fff; border-left: 3px solid var(--accent); padding: .9rem 1rem; font-size: .82rem; color: var(--muted); line-height: 1.6; border-radius: 0 4px 4px 0; margin-top: .75rem; }
+    .btn-share { display: flex; align-items: center; gap: .5rem; background: var(--blue); color: #fff; border: none; border-radius: 4px; padding: .6rem 1rem; font-size: .85rem; font-weight: 600; cursor: pointer; width: 100%; justify-content: center; margin-top: .75rem; transition: background .2s; }
+    .btn-share:hover { background: var(--blue-dark); }
+    footer { background: #0d1a2e; padding: 3.5rem 0 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-top: .75rem; line-height: 1.7; }
+    .footer-col h4 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.45); margin-bottom: .9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+    .footer-col ul a, .footer-col ul li { font-size: .875rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-col ul a:hover { color: #fff; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; display: flex; justify-content: space-between; align-items: center; font-size: .76rem; color: rgba(255,255,255,.3); }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+    @media (max-width: 900px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .side-col { position: static; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-list { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+      .page-wrap { padding: 2rem 1rem 3rem; }
+      .top-bar-inner, .nav-inner, .footer-inner, .footer-bottom { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#">University of Graz</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Imprint</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav-inner">
+      <a href="index3.html" class="logo">
+        <img class="logo-box" src="Logo_Uni-Graz_4c.jpg" alt="University of Graz logo" />
+        <div class="logo-text">
+          <div class="l1">University of Graz</div>
+          <div class="l2">Topics in Cognitive Psychology: Psychological Interventions Using Digital Technologies</div>
+        </div>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index3.html">Home</a></li>
+          <li><a href="index3.html">Main Topic</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero-img-wrap">
+    <img src="pexels-cottonbro-6754012.jpg" alt="A lonely woman sitting on a bed" onerror="this.style.display='none'" />
+    <div class="hero-credit">
+      Image credit: Cottonbro / <a href="https://www.pexels.com/photo/a-lonely-woman-sitting-on-a-bed-6754012/">Pexels</a>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <article class="main-col">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index3.html">Home</a> <span>/</span>
+        <a href="index3.html">Topics</a> <span>/</span>
+        <span>Predicting Depression and Anxiety Mood by Wrist-Worn Sleep Sensor</span>
+      </nav>
+
+      <div class="tag-row">
+        <a href="#" class="tag">Sleep &amp; Mental Health</a>
+        <a href="#" class="tag">Occupational Health</a>
+        <a href="#" class="tag">Prediction vs Detection</a>
+        <a href="#" class="tag">Wearable AI</a>
+      </div>
+
+      <div class="article-meta">Fukuda et al. (2020) · IEEE PerCom Workshops</div>
+      <h1 class="article-title">Predicting Depression and Anxiety Mood by Wrist-Worn Sleep Sensor</h1>
+
+      <div class="overview-box">
+        <h3>Key Findings at a Glance</h3>
+        <table>
+          <tbody>
+            <tr><th>Participants</th><td>60 office workers, 5 Japanese companies</td></tr>
+            <tr><th>Study duration</th><td>2 to 3 weeks per participant</td></tr>
+            <tr><th>Device used</th><td>Fitbit Charge 3 (wrist-worn)</td></tr>
+            <tr><th>Data type</th><td>Sleep features only (13 features)</td></tr>
+            <tr><th>Algorithm</th><td>Balanced Random Forest</td></tr>
+            <tr><th>Validation</th><td>Leave-one-person-out cross-validation</td></tr>
+            <tr><th>Anxiety F1 score</th><td>0.756 (participants with at least one week of data)</td></tr>
+            <tr><th>Most predictive feature</th><td>REM sleep time ratio</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="article-body">
+        <div class="stat-row">
+          <div class="stat-pill"><div class="num">60</div><div class="lbl">Participants</div></div>
+          <div class="stat-pill"><div class="num">13</div><div class="lbl">Sleep Features</div></div>
+          <div class="stat-pill"><div class="num">0.756</div><div class="lbl">Anxiety F1 Score</div></div>
+          <div class="stat-pill"><div class="num">REM</div><div class="lbl">Top Predictor</div></div>
+        </div>
+
+        <h2>What This Study Is About</h2>
+        <p>Most wearable AI research in the anxiety space asks whether a device can detect anxiety that is already present. Fukuda et al. (2020) asks a different and arguably more useful question: can a standard consumer wristband predict how anxious a person will feel tomorrow morning, based purely on how they slept the night before?</p>
+        <p>The study recruited 60 office workers across five Japanese companies. For two to three weeks, participants wore a Fitbit Charge 3 continuously and answered a short mood questionnaire on their smartphones each morning upon waking. There was no laboratory component, no clinical assessment, and no specialist equipment. Just a wristband most people would recognise from a shop window, and a brief daily check-in.</p>
+
+        <h2>How the Technology Was Used</h2>
+        <p>The Fitbit Charge 3 automatically records sleep throughout the night using its wrist-based accelerometer and optical heart rate sensor. It distinguishes between four sleep stages: REM, light, deep, and wake. From each night of sleep, 13 features were extracted for the study: total sleep duration, the number of minutes spent in each stage, the proportion of total sleep that each stage represented, how many times the person woke during the night, and how many transitions occurred between sleep levels.</p>
+        <p>These 13 features from the previous night were then fed into a machine learning model to predict whether the participant would report high or low anxiety that morning. The algorithm used was a Balanced Random Forest, which is a variant of the standard random forest classifier designed specifically for situations where one outcome is less frequent than the other. In mood data, extreme states like "high anxiety" naturally occur less often than moderate states, and a standard classifier tends to learn that ignoring them gives a decent accuracy score. The balanced version corrects for this by ensuring the model pays equal attention to both ends of the scale.</p>
+        <p>The ground truth for training was defined by taking the top and bottom 20% of DAMS anxiety scores across all responses and labelling these as high and low. The middle 60% of scores were discarded to reduce ambiguity in borderline cases. Performance was evaluated using leave-one-person-out cross-validation, which trains the model on 59 participants and tests it on the remaining one, rotating through every participant in turn. This approach directly tests whether the model can generalise to people it has not yet encountered.</p>
+
+        <h2>Main Results</h2>
+        <p>For anxiety mood prediction, the model achieved an F1 score of 0.756 among participants who had at least one full week of usable data. The confusion matrix showed that 63% of high-anxiety mornings and 63% of low-anxiety mornings were correctly classified, a balanced result that indicates the model is not simply defaulting to one prediction category.</p>
+        <p>Feature importance analysis placed REM sleep time ratio as the single most predictive variable for anxiety, followed by total REM sleep minutes and light sleep time ratio. This pattern was consistent across all three mood outcomes examined in the study, suggesting that the architecture of REM sleep carries meaningful information about next-day psychological state that goes beyond what total sleep duration alone would capture.</p>
+        <p>Performance varied considerably between individuals. The interquartile range of F1 scores for anxiety was 0.57, meaning that while some participants were predicted with high accuracy, others were not well captured by the population-level model. The authors note that personalising the model to an individual user, once sufficient personal data has been collected, is a likely route to improving this.</p>
+
+        <h2>Why This Study Stands Out</h2>
+        <p>Within the broader meta-analysis by Abd-alrazaq et al. (2023), Fukuda et al. is one of only three studies oriented toward prediction rather than detection, meaning it forecasts future anxiety states rather than classifying a current one. This distinction has real clinical weight. A tool that can give advance warning that a high-anxiety period is approaching opens up the possibility of early support or intervention, not just a retrospective record of how someone was feeling.</p>
+        <p>The study is also notable for how grounded it is in everyday life. Data was collected in real workplaces over multiple weeks. The device is available to any member of the public. The measurement burden on participants was minimal. These are exactly the conditions that would need to hold for any wearable mental health tool to be used at scale.</p>
+        <p>The finding that REM sleep is the dominant predictor across all three mood outcomes is also worth highlighting because it connects the results to a well-established body of sleep neuroscience. REM sleep is known to play a central role in emotional memory consolidation and mood regulation, which gives the model's predictions a plausible biological grounding rather than leaving them as a statistical pattern without a clear mechanism.</p>
+
+        <h2>Limitations</h2>
+        <p>The sample of 60 participants from a single occupational and cultural context limits how far the findings can be generalised. The study was published as a conference paper, which means the level of methodological detail is relatively brief. Consumer Fitbit sleep staging is known to be less accurate than polysomnography, so some of the sleep feature values will contain measurement error. And while leave-one-person-out cross-validation is well suited to small samples, the model has not yet been tested on an entirely independent cohort from a different context.</p>
+
+        <h2>Conclusion</h2>
+        <p>Fukuda et al. (2020) offers a grounded and concrete demonstration of what wearable AI for mental health could look like in practice. A mainstream fitness tracker worn to sleep, 13 automatically extracted sleep features, and a short morning questionnaire are enough to forecast next-day anxiety levels in working adults with meaningful accuracy. It does not require a clinical setting, specialist hardware, or any particular effort from the user beyond wearing the device. Whether this approach can scale, generalise across different populations and cultures, and ultimately meet the performance standards needed for clinical use remains an open question. But as a starting point for what prediction-oriented wearable mental health tools might look like in the real world, it is a study worth taking seriously.</p>
+
+        <h2>Reference</h2>
+        <p>Fukuda, S., Matsuda, Y., Tani, Y., Arakawa, Y., &amp; Yasumoto, K. (2020). Predicting depression and anxiety mood by wrist-worn sleep sensor. <em>2020 IEEE International Conference on Pervasive Computing and Communications Workshops (PerCom Workshops)</em>, 1–6.</p>
+      </div>
+    </article>
+
+    <aside class="side-col">
+      <div class="sidebar-card">
+        <h4>Cite This Study</h4>
+        <div class="cite-box">Fukuda, S., Matsuda, Y., Tani, Y., Arakawa, Y., &amp; Yasumoto, K. (2020). Predicting depression and anxiety mood by wrist-worn sleep sensor. <em>2020 IEEE International Conference on Pervasive Computing and Communications Workshops (PerCom Workshops)</em>, 1–6.</div>
+        <button class="btn-share" onclick="navigator.clipboard && navigator.clipboard.writeText('Fukuda, S., Matsuda, Y., Tani, Y., Arakawa, Y., & Yasumoto, K. (2020). Predicting depression and anxiety mood by wrist-worn sleep sensor. 2020 IEEE International Conference on Pervasive Computing and Communications Workshops (PerCom Workshops), 1–6.')">Copy Citation</button>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Key Findings at a Glance</h4>
+        <ul>
+          <li>Population: <strong>60 office workers</strong></li>
+          <li>Device: <strong>Fitbit Charge 3</strong></li>
+          <li>Model: <strong>Balanced Random Forest</strong></li>
+          <li>Anxiety F1: <strong>0.756</strong></li>
+          <li>Top predictor: <strong>REM sleep time ratio</strong></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h4>Related Topics</h4>
+        <ul>
+          <li><a href="#">Sleep and Mental Health</a></li>
+          <li><a href="#">Occupational Health</a></li>
+          <li><a href="#">Prediction vs Detection</a></li>
+          <li><a href="#">Wearable AI</a></li>
+          <li><a href="index3.html">Wearable Artificial Intelligence for Detecting Anxiety: Systematic Review and Meta-Analysis</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index3.html" class="logo" style="margin-bottom:.5rem;display:inline-flex">
+          <img src="Logo_Uni-Graz_Claim_Lang_4c.jpg" alt="University of Graz claim logo" style="height:52px; width:auto; display:block; background:#fff; border-radius:2px;" />
+        </a>
+        <p>This page presents course-related review content on digital psychological interventions and cognitive psychology topics. AI Disclosure: The code of the website was assisted by artificial intelligence with the coding Tool Codex, GPT-5.4.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Institution</h4>
+        <ul>
+          <li>University of Graz</li>
+          <li>Institute context: Cognitive Psychology</li>
+          <li>Digital intervention topics</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Source</h4>
+        <ul>
+          <li>2020 IEEE PerCom Workshops</li>
+          <li>Predicting depression and anxiety mood by wrist-worn sleep sensor</li>
+          <li>Presented by Arnela Bedak, Nejla Hidic, Janniella Heimig</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Focus</h4>
+        <ul>
+          <li>Sleep and Mental Health</li>
+          <li>Prediction vs Detection</li>
+          <li>Wearable AI</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Copyright 2026 – University of Graz</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#">Imprint</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
