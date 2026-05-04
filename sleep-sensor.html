@@ -97,7 +97,7 @@
       text-decoration: none;
     }
     .figure-block.compact {
-      max-width: 640px;
+      max-width: 460px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -107,6 +107,10 @@
       gap: 1rem;
       margin: 1.5rem 0 2rem;
       align-items: start;
+    }
+    .figure-row.compact-row {
+      grid-template-columns: minmax(0, 460px) minmax(0, 460px);
+      justify-content: center;
     }
     .article-body table, .overview-box table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
     .article-body th, .overview-box th { background: #f3f6fb; color: var(--text); padding: .7rem 1rem; text-align: left; font-weight: 700; width: 36%; border: 1px solid var(--border); vertical-align: top; }
@@ -227,8 +231,8 @@
         </div>
 
         <h2>What This Study Is About</h2>
-        <p>Most wearable AI research in the anxiety space asks whether a device can detect anxiety that is already present. Fukuda et al. (2020) asks a different and arguably more useful question: can a standard consumer wristband predict how anxious a person will feel tomorrow morning, based purely on how they slept the night before?</p>
-        <p>The study recruited 60 office workers across five Japanese companies. For two to three weeks, participants wore a Fitbit Charge 3 continuously and answered a short mood questionnaire on their smartphones each morning upon waking. There was no laboratory component, no clinical assessment, and no specialist equipment. Just a wristband most people would recognise from a shop window, and a brief daily check-in.</p>
+        <p>The majority of the wearable AI research in the Meta analysis focues on whether detection of anxiety is possible, but Fukuda et al. (2020) asks a different question: Can a standard consumer wristband predict how anxious a person will feel tomorrow morning, based purely on how they slept the night before?</p>
+        <p>The study recruited 60 office workers across five Japanese companies. For two to three weeks, participants wore a Fitbit Charge 3 continuously and answered a short mood questionnaire on their smartphones each morning upon waking.</p>
         <div class="image-pair">
           <figure>
             <img src="pexels-jaralol-27609746.jpg" alt="Close-up of a smart watch with a clock" onerror="this.style.display='none'" />
@@ -241,12 +245,22 @@
         </div>
 
         <h2>How the Technology Was Used</h2>
-        <p>The Fitbit Charge 3 automatically records sleep throughout the night using its wrist-based accelerometer and optical heart rate sensor. It distinguishes between four sleep stages: REM, light, deep, and wake. From each night of sleep, 13 features were extracted for the study: total sleep duration, the number of minutes spent in each stage, the proportion of total sleep that each stage represented, how many times the person woke during the night, and how many transitions occurred between sleep levels.</p>
+        <p>The Fitbit Charge 3 automatically records sleep throughout the night using its wrist-based accelerometer and optical heart rate sensor. It distinguishes between four sleep stages: REM, light, deep, and wake. From each night of sleep, 13 features were extracted for the study: total sleep duration, the minutes in each stage, the ratio of total sleep that each stage represented, as well as how many times the person woke up during the night.</p>
         <p>These 13 features from the previous night were then fed into a machine learning model to predict whether the participant would report high or low anxiety that morning. The algorithm used was a Balanced Random Forest, which is a variant of the standard random forest classifier designed specifically for situations where one outcome is less frequent than the other. In mood data, extreme states like "high anxiety" naturally occur less often than moderate states, and a standard classifier tends to learn that ignoring them gives a decent accuracy score. The balanced version corrects for this by ensuring the model pays equal attention to both ends of the scale.</p>
         <p>The ground truth for training was defined by taking the top and bottom 20% of DAMS anxiety scores across all responses and labelling these as high and low. The middle 60% of scores were discarded to reduce ambiguity in borderline cases. Performance was evaluated using leave-one-person-out cross-validation, which trains the model on 59 participants and tests it on the remaining one, rotating through every participant in turn. This approach directly tests whether the model can generalise to people it has not yet encountered.</p>
+        <div class="figure-row compact-row">
+          <figure class="figure-block compact" style="margin:0;">
+            <img src="Screenshot 2026-05-02 at 17.44.55.png" alt="Balanced Random Forest diagram" onerror="this.style.display='none'" />
+            <figcaption>Source: Fadly Mochammad Taufiq / <a href="https://medium.com/@fadleemt/balanced-random-forest-d5dc9c896bb4">Medium</a></figcaption>
+          </figure>
+          <figure class="figure-block compact" style="margin:0;">
+            <img src="Screenshot 2026-05-03 at 20.35.29.png" alt="Leave One Out Cross Validation diagram" onerror="this.style.display='none'" />
+            <figcaption>Source: Nirajan Khadka / <a href="https://dataaspirant.com/leave-one-out-cross-validation-loocv/">Dataspirant</a></figcaption>
+          </figure>
+        </div>
         <figure class="figure-block compact">
-          <img src="Screenshot 2026-05-02 at 17.44.55.png" alt="Balanced Random Forest diagram" onerror="this.style.display='none'" />
-          <figcaption>Source: Fadly Mochammad Taufiq / <a href="https://medium.com/@fadleemt/balanced-random-forest-d5dc9c896bb4">Medium</a></figcaption>
+          <img src="Screenshot 2026-05-02 at 17.48.24.png" alt="TABLE VII Features Importance of Anxiety Mood Estimation" onerror="this.style.display='none'" />
+          <figcaption>TABLE VII: Features Importance of Anxiety Mood Estimation</figcaption>
         </figure>
 
         <h2>Main Results</h2>
@@ -255,9 +269,15 @@
         <p>Performance varied considerably between individuals. The interquartile range of F1 scores for anxiety was 0.57, meaning that while some participants were predicted with high accuracy, others were not well captured by the population-level model. The authors note that personalising the model to an individual user, once sufficient personal data has been collected, is a likely route to improving this.</p>
         <div class="figure-row">
           <figure class="figure-block" style="margin:0;">
-            <img src="Screenshot 2026-05-02 at 17.48.24.png" alt="TABLE VII Features Importance of Anxiety Mood Estimation" onerror="this.style.display='none'" />
-            <figcaption>TABLE VII: Features Importance of Anxiety Mood Estimation</figcaption>
+            <img src="Screenshot 2026-05-03 at 18.56.18.png" alt="Fig. 3 Distribution of Anxiety Score" onerror="this.style.display='none'" />
+            <figcaption>Fig. 3: Distribution of Anxiety Score</figcaption>
           </figure>
+          <figure class="figure-block" style="margin:0;">
+            <img src="Screenshot 2026-05-03 at 18.56.30.png" alt="TABLE III Results of Leave One Person Out Cross Validation" onerror="this.style.display='none'" />
+            <figcaption>TABLE III: Results of Leave One Person Out Cross Validation</figcaption>
+          </figure>
+        </div>
+        <div class="figure-row">
           <figure class="figure-block" style="margin:0;">
             <img src="Screenshot 2026-05-02 at 17.50.56.png" alt="Fig. 9 Confusion Matrix of Anxiety Mood" onerror="this.style.display='none'" />
             <figcaption>Fig. 9: Confusion Matrix of Anxiety Mood</figcaption>
@@ -265,18 +285,24 @@
         </div>
 
         <h2>Why This Study Stands Out</h2>
-        <p>Within the broader meta-analysis by Abd-alrazaq et al. (2023), Fukuda et al. is one of only three studies oriented toward prediction rather than detection, meaning it forecasts future anxiety states rather than classifying a current one. This distinction has real clinical weight. A tool that can give advance warning that a high-anxiety period is approaching opens up the possibility of early support or intervention, not just a retrospective record of how someone was feeling.</p>
-        <p>The study is also notable for how grounded it is in everyday life. Data was collected in real workplaces over multiple weeks. The device is available to any member of the public. The measurement burden on participants was minimal. These are exactly the conditions that would need to hold for any wearable mental health tool to be used at scale.</p>
+        <p>Within the broader meta-analysis by Abd-alrazaq et al. (2023), Fukuda et al. is one of only three studies oriented toward prediction rather than detection, meaning it forecasts future anxiety states rather than classifying a current one. This distinction has real clinical weight. A tool that can give advance warning that a high-anxiety period is approaching opens up the possibility of early support or help in certain situations.</p>
+        <p>The study is also notable for how grounded it is in everyday life. Data was collected in real workplaces over multiple weeks. The device is relatively cheap and available to the members of the public. The measurement burden on participants was minimal. These are exactly the conditions that would need to hold for any wearable mental health tool to be used at scale.</p>
         <p>The finding that REM sleep is the dominant predictor across all three mood outcomes is also worth highlighting because it connects the results to a well-established body of sleep neuroscience. REM sleep is known to play a central role in emotional memory consolidation and mood regulation, which gives the model's predictions a plausible biological grounding rather than leaving them as a statistical pattern without a clear mechanism.</p>
 
         <h2>Limitations</h2>
-        <p>The sample of 60 participants from a single occupational and cultural context limits how far the findings can be generalised. The study was published as a conference paper, which means the level of methodological detail is relatively brief. Consumer Fitbit sleep staging is known to be less accurate than polysomnography, so some of the sleep feature values will contain measurement error. And while leave-one-person-out cross-validation is well suited to small samples, the model has not yet been tested on an entirely independent cohort from a different context.</p>
+        <p>The sample of 60 participants from a single occupational and cultural context limits how far the findings can be generalised. Of those 42 remained due to various factors and in the end 21 subjects were left that had 1 or more weeks worth of data.</p>
+        <p>The study was published as a conference paper, which means the level of methodological detail is relatively brief. Consumer Fitbit sleep staging is known to be less accurate than polysomnography, so some of the sleep feature values will contain measurement error. And while leave-one-person-out cross-validation is well suited to small samples, the model has not yet been tested on an entirely independent cohort from a different context.</p>
 
         <h2>Conclusion</h2>
-        <p>Fukuda et al. (2020) offers a grounded and concrete demonstration of what wearable AI for mental health could look like in practice. A mainstream fitness tracker worn to sleep, 13 automatically extracted sleep features, and a short morning questionnaire are enough to forecast next-day anxiety levels in working adults with meaningful accuracy. It does not require a clinical setting, specialist hardware, or any particular effort from the user beyond wearing the device. Whether this approach can scale, generalise across different populations and cultures, and ultimately meet the performance standards needed for clinical use remains an open question. But as a starting point for what prediction-oriented wearable mental health tools might look like in the real world, it is a study worth taking seriously.</p>
+        <p>Fukuda et al. (2020) offers a grounded and concrete demonstration of what wearable AI for mental health could look like in practice. A mainstream fitness tracker worn to sleep, 13 automatically extracted sleep features, plus a short morning questionnaire. These can already be enough to estimate next day anxiety levels in working adults. It does not require a strictly clinical setting or any particular effort from the user beyond wearing the device. Whether this approach can scale and generalise across different populations and cultures to meet the performance standards needed for actual clinical use remains an open question. But as a starting point for what prediction-oriented wearable mental health tools might look like in the real world, it is indeed a study worth taking seriously.</p>
 
         <h2>Why This Study Is Special to Me</h2>
-        <p>I have sleep problems myself, and wanting to understand my own sleep better was actually the reason I considered getting a fitness tracker in the first place. So this study felt personal in a way the others did not. Beyond that, I found the occupational setting compelling. The participants are ordinary office workers, not clinical patients, and the study quietly asks something that feels very relevant to how many of us live: what is the relationship between work, sleep, and anxiety actually doing to people, measured day by day? We live in a society where overworking at the cost of sleep is often framed as productive or even admirable, yet this study suggests that disrupted sleep carries a measurable psychological cost. What I find both fascinating and a little unsettling is that a standard consumer wristband is already sensitive enough to detect it.</p>
+        <p>There is a fascinating japanese phenomena called Karoshi, death by work.</p>
+        <p>I have sleep problems myself and wanting to understand my own sleep better was actually one of the reasons I considered getting a fitness tracker in the first place. So this study felt personal in a way. Beyond that I found the work environment setting compelling. The participants are ordinary office workers, not clinical patients. Furthermore the study quietly asks something that feels very relevant to how many of us live: what is the relationship between work, sleep, and anxiety actually doing to people,when we measure this day by day? We live in a society where overworking at the cost of sleep is often framed as productive or even admirable, yet this study suggests that disrupted sleep carries a measurable psychological cost. What I find both fascinating and a little unsettling is that a standard consumer wristband like a fitbit is already sensitive enough to detect it.</p>
+        <figure class="figure-block compact">
+          <img src="pexels-silverkblack-36713392.jpg" alt="Person reflecting in bed with a smartwatch nearby" onerror="this.style.display='none'" />
+          <figcaption>Source: Vitaly Gariev / <a href="https://www.pexels.com/">Pexels</a></figcaption>
+        </figure>
 
         <h2>Reference</h2>
         <p>Fukuda, S., Matsuda, Y., Tani, Y., Arakawa, Y., &amp; Yasumoto, K. (2020). Predicting depression and anxiety mood by wrist-worn sleep sensor. <em>2020 IEEE International Conference on Pervasive Computing and Communications Workshops (PerCom Workshops)</em>, 1–6.</p>
